@@ -167,7 +167,7 @@ const PageSizeSelector = memo(
           ))}
         </SelectContent>
       </Select>
-      <p className="text-sm font-medium leading-none">per page</p>
+      <p className="text-sm leading-none font-medium">per page</p>
     </div>
   ),
 );

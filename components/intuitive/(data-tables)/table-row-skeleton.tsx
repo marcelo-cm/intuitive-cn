@@ -16,7 +16,7 @@ export const TableLoadingSkeleton = memo(
       <React.Fragment>
         {Array.from({ length: rowsLength }).map((_, idx) => (
           <TableRow key={idx}>
-            <TableCell className="py-3 pl-3 pr-1">
+            <TableCell className="py-3 pr-1 pl-3">
               <span className="flex gap-2">
                 <Skeleton className="flex size-11 flex-none animate-pulse items-center justify-center rounded-full" />
                 <Skeleton className="flex h-11 w-full animate-pulse items-center justify-center" />

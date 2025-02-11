@@ -31,7 +31,7 @@ const DLIFilterSelect = ({ name, children }: DLIFilterSelectProps) => {
     >
       <SelectTrigger
         data-is-empty={!table.getColumn(name)?.getFilterValue()}
-        className="group text-black data-[is-empty=true]:text-muted-foreground xl:max-w-[200px]"
+        className="group data-[is-empty=true]:text-muted-foreground text-black xl:max-w-[200px]"
       >
         <SelectValue placeholder={`Filter by ${prettifyText(name)}`} />
       </SelectTrigger>

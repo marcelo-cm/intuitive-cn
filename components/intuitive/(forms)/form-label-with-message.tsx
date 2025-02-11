@@ -20,14 +20,14 @@ export const FormLabelWithMessage = ({
       {((!required && !error) || (!required && !error?.message)) && (
         <span
           className={cn(
-            'text-xs font-medium leading-none text-muted-foreground',
+            'text-muted-foreground text-xs leading-none font-medium',
             required && error && !error?.message && 'text-destructive',
           )}
         >
           Optional
         </span>
       )}
-      <FormMessage className="text-xs !leading-[14px]" />
+      <FormMessage className="text-xs leading-[14px]!" />
     </div>
   );
 };

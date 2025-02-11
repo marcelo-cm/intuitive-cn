@@ -40,7 +40,7 @@ export function PaginatedFilterSelect<T>({
     <Select onValueChange={onFilterChange}>
       <SelectTrigger
         className={cn(
-          'group text-black data-[is-empty=true]:text-muted-foreground xl:max-w-[200px]',
+          'group data-[is-empty=true]:text-muted-foreground text-black xl:max-w-[200px]',
           className,
         )}
         data-is-empty={!filters[filterKey]}

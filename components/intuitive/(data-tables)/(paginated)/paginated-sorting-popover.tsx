@@ -80,7 +80,7 @@ export function PaginatedSortPopover({
             variant="outline"
             className={cn(
               !sortState.sortedBy &&
-                'rounded-md font-normal text-muted-foreground',
+                'text-muted-foreground rounded-md font-normal',
               className,
             )}
           >
@@ -100,8 +100,8 @@ export function PaginatedSortPopover({
               onClick={() => handleSelectSortedBy(option)}
             >
               {prettifyText(option)}
-              <Check className="ml-auto hidden group-data-[active=true]:flex group-hover:group-data-[active=true]:hidden" />
-              <X className="ml-auto hidden group-hover:group-data-[active=true]:flex" />
+              <Check className="ml-auto hidden group-data-[active=true]:flex group-data-[active=true]:group-hover:hidden" />
+              <X className="ml-auto hidden group-data-[active=true]:group-hover:flex" />
             </Button>
           ))}
         </PopoverContent>

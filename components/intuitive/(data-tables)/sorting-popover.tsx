@@ -78,7 +78,7 @@ function SortPopover({ options }: { options: string[] }) {
           <Button
             variant="outline"
             className={cn(
-              !sortedBy && 'rounded-md font-normal text-muted-foreground',
+              !sortedBy && 'text-muted-foreground rounded-md font-normal',
             )}
           >
             {sortedBy ? `Sorted by ${prettifyText(sortedBy)}` : 'Sort by...'}
@@ -95,8 +95,8 @@ function SortPopover({ options }: { options: string[] }) {
               onClick={() => handleSelectSortedBy(option)}
             >
               {prettifyText(option)}
-              <Check className="ml-auto hidden group-data-[active=true]:flex group-hover:group-data-[active=true]:hidden" />
-              <X className="ml-auto hidden group-hover:group-data-[active=true]:flex" />
+              <Check className="ml-auto hidden group-data-[active=true]:flex group-data-[active=true]:group-hover:hidden" />
+              <X className="ml-auto hidden group-data-[active=true]:group-hover:flex" />
             </Button>
           ))}
         </PopoverContent>

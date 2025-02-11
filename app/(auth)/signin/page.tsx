@@ -56,7 +56,7 @@ const SignUpPage = () => {
       <Card className="min-w-96">
         <form onSubmit={handleSubmit(signinAction, console.error)}>
           <CardHeader>
-            <CardTitle className="text-secondary">Sign In</CardTitle>
+            <CardTitle>Sign In</CardTitle>
             <CardDescription>
               Welcome back to Swing! We&apos;re excited to make your life
               easier.
