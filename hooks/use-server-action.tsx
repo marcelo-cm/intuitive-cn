@@ -6,61 +6,94 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+import { useGlobalLoading } from './use-global-loading';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/**
+ * A successful server action response. This requires the server action to return a response with a status of 'success'.
+ */
 interface SuccessServerActionResponse<T> {
   status: 'success';
   data: T;
   router: AppRouterInstance;
 }
 
+/**
+ * An error server action response. This requires the server action to return a response with a status of 'error'.
+ */
 interface ErrorServerActionResponse {
   status: 'error';
   error: {
+    code?: string;
     message: string;
+    details?: Record<string, any>;
   };
   router: AppRouterInstance;
 }
 
-interface SuccessConfig {
+interface ResponseConfig<T> {
   title?: string;
   message?: string;
-  action?: (response: SuccessServerActionResponse<any>) => any;
+  /**
+   * The action to execute after the action is executed.
+   */
+  action?: (response: T) => any;
+  /**
+   * Whether to refresh the page after the action is executed.
+   */
   refresh?: boolean;
+  /**
+   * The redirect URL after the action is executed.
+   */
   redirect?: string;
 }
 
-interface ErrorConfig {
-  title?: string;
-  message?: string;
-  action?: (response: ErrorServerActionResponse) => any;
-  refresh?: boolean;
-  redirect?: string;
-}
-
-export interface UseClientServerActionProps<
-  TAction extends (...args: any[]) => any,
-> {
+export interface UseServerActionProps<TAction extends (...args: any[]) => any> {
+  /**
+   * The server action to execute.
+   */
   action: TAction;
-  onSuccess?: SuccessConfig;
-  onError: ErrorConfig;
+  /**
+   * The response configuration for a successful server action.
+   */
+  onSuccess?: ResponseConfig<
+    SuccessServerActionResponse<Awaited<ReturnType<TAction>>>
+  >;
+  /**
+   * The response configuration for an error server action.
+   */
+  onError: ResponseConfig<ErrorServerActionResponse>;
+  options?: undefined;
 }
 
+/**
+ * @description A hook that allows you to execute a server action and handle the response.
+ * @param action The server action to execute.
+ * @param onSuccess The response configuration for a successful server action.
+ * @param onError The response configuration for an error server action.
+ * @returns A tuple containing the client server action and a boolean indicating if the action is executing.
+ */
 export default function useServerAction<
   TAction extends (...args: any[]) => Promise<any>,
->({ action, onSuccess, onError }: UseClientServerActionProps<TAction>) {
+>({ action, onSuccess, onError }: UseServerActionProps<TAction>) {
+  const { setLoading } = useGlobalLoading();
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [executing, setExecuting] = useState<boolean>(false);
 
   const clientServerAction = useCallback(
     async (
       ...args: Parameters<TAction>
     ): Promise<Awaited<ReturnType<TAction>>> => {
+      setExecuting(true);
       setLoading(true);
+
       try {
-        console.info('action', action);
         const response = await action(...args);
-        console.info('response', response);
+
+        if (response.status === 'error') {
+          throw new Error(response.error.message);
+        }
 
         if (onSuccess?.message || onSuccess?.title) {
           toast.success(onSuccess.title ?? 'Success', {
@@ -77,51 +110,45 @@ export default function useServerAction<
           });
         }
 
-        if (onSuccess?.refresh) {
-          router.refresh();
-        }
-
-        if (onSuccess?.redirect) {
-          router.push(onSuccess.redirect);
+        if (onSuccess?.refresh || onSuccess?.redirect) {
+          if (onSuccess?.redirect) {
+            router.push(onSuccess.redirect);
+          } else if (onSuccess?.refresh) {
+            router.refresh();
+          }
         }
 
         return response;
       } catch (error: any) {
-        if (error instanceof Error) {
-          const errorMessage =
-            error?.message ?? 'There was an error with the action';
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : 'An unexpected error occurred';
 
+        if (onError) {
           toast.error(onError.title ?? 'Error', {
-            description: onError?.message ?? errorMessage,
+            description: onError.message ?? errorMessage,
             closeButton: true,
           });
 
-          if (onError?.action) {
-            await onError.action({
-              status: 'error',
-              error: {
-                message: errorMessage,
-              },
-              router,
-            });
-          }
-
-          if (onError?.refresh) {
-            router.refresh();
-          }
-
-          if (onError?.redirect) {
-            router.push(onError.redirect);
-          }
+          await onError.action?.({
+            status: 'error',
+            error: { message: errorMessage },
+            router,
+          });
         }
+
+        if (onError?.refresh) router.refresh();
+        if (onError?.redirect) router.push(onError.redirect);
 
         throw error;
       } finally {
         setLoading(false);
+        setExecuting(false);
       }
     },
-    [action, onSuccess, router, onError],
+    [action, onSuccess, router, onError, setLoading],
   );
 
-  return [clientServerAction, loading] as const;
+  return [clientServerAction, executing] as const;
 }

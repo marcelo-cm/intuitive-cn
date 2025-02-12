@@ -85,3 +85,8 @@ export async function signup(data: z.infer<typeof CreateUserSchema>) {
 
   redirect('/home');
 }
+
+export async function serverAction() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return 'Hello';
+}

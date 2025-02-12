@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 import tailwindAnimatePlugin from 'tailwindcss-animate';
 
 export default {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -72,6 +72,6 @@ export default {
         mono: ['var(--font-geist-mono)'],
       },
     },
-    plugins: [tailwindAnimatePlugin],
+    plugins: tailwindAnimatePlugin,
   },
 } satisfies Config;

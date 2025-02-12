@@ -8,19 +8,19 @@ export const useUpdateSearchParams = () => {
   return (
     params: Record<string, string | number | boolean | null | undefined>,
   ) => {
-    const nextSearchParams = new URLSearchParams(
-      searchParams?.toString() ?? '',
-    );
+    if (!searchParams) return;
 
-    Object.entries(params).forEach(([key, value]) => {
-      if (value === undefined || value === null) {
+    const nextSearchParams = new URLSearchParams(searchParams.toString());
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value == null) {
         nextSearchParams.delete(key);
       } else {
         nextSearchParams.set(key, String(value));
       }
-    });
+    }
 
-    router.push(`${pathname}?${nextSearchParams.toString()}`, {
+    router.replace(`${pathname}?${nextSearchParams.toString()}`, {
       scroll: false,
     });
   };
