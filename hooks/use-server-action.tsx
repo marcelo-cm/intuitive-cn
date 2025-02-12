@@ -10,10 +10,20 @@ import { useGlobalLoading } from './use-global-loading';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+export interface ServerActionResponse<T> {
+  status: 'success' | 'error';
+  data: T;
+  error?: {
+    code?: string;
+    message: string;
+    details?: Record<string, any>;
+  };
+}
+
 /**
  * A successful server action response. This requires the server action to return a response with a status of 'success'.
  */
-interface SuccessServerActionResponse<T> {
+interface SuccessResponse<T> {
   status: 'success';
   data: T;
   router: AppRouterInstance;
@@ -22,7 +32,7 @@ interface SuccessServerActionResponse<T> {
 /**
  * An error server action response. This requires the server action to return a response with a status of 'error'.
  */
-interface ErrorServerActionResponse {
+interface ErrorResponse {
   status: 'error';
   error: {
     code?: string;
@@ -57,13 +67,11 @@ export interface UseServerActionProps<TAction extends (...args: any[]) => any> {
   /**
    * The response configuration for a successful server action.
    */
-  onSuccess?: ResponseConfig<
-    SuccessServerActionResponse<Awaited<ReturnType<TAction>>>
-  >;
+  onSuccess?: ResponseConfig<SuccessResponse<Awaited<ReturnType<TAction>>>>;
   /**
    * The response configuration for an error server action.
    */
-  onError: ResponseConfig<ErrorServerActionResponse>;
+  onError: ResponseConfig<ErrorResponse>;
   options?: undefined;
 }
 

@@ -23,70 +23,97 @@ import { SigninSchema } from '../(auth)/schemas';
 export async function signin(data: z.infer<typeof SigninSchema>) {
   const supabase = await createClient();
 
-  const { data: userAuthData, error: userAuthError } =
-    await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    });
+  try {
+    const { data: userAuthData, error: userAuthError } =
+      await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
 
-  if (userAuthError) {
-    throw userAuthError;
+    if (userAuthError) {
+      throw userAuthError;
+    }
+
+    if (!userAuthData?.user?.id) {
+      throw new Error('No user auth data');
+    }
+
+    revalidatePath('/', 'layout');
+
+    redirect('/home');
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 'error',
+      error,
+    };
   }
-
-  if (!userAuthData?.user?.id) {
-    throw new Error('No user auth data');
-  }
-
-  revalidatePath('/', 'layout');
-
-  redirect('/home');
 }
 
 export async function signup(data: z.infer<typeof CreateUserSchema>) {
   const supabase = await createClient();
 
-  const { data: userAuthData, error: userAuthError } =
-    await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: {
-          first_name: data.first_name,
-          last_name: data.last_name,
+  try {
+    const { data: userAuthData, error: userAuthError } =
+      await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            first_name: data.first_name,
+            last_name: data.last_name,
+          },
         },
-      },
-    });
+      });
 
-  if (userAuthError) {
-    throw userAuthError;
+    if (userAuthError) {
+      throw userAuthError;
+    }
+
+    if (!userAuthData?.user?.id) {
+      throw new Error('No user auth data');
+    }
+
+    const body: TInsertUser & { id: string } = {
+      id: userAuthData.user.id,
+      email: data.email,
+      first_name: data.first_name,
+      last_name: data?.last_name,
+    };
+
+    const { error: userError } = await supabase
+      .from('users')
+      .insert(body)
+      .select('*');
+
+    if (userError) {
+      redirect('/login');
+    }
+
+    revalidatePath('/', 'layout');
+
+    redirect('/home');
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 'error',
+      error,
+    };
   }
-
-  if (!userAuthData?.user?.id) {
-    throw new Error('No user auth data');
-  }
-
-  const body: TInsertUser & { id: string } = {
-    id: userAuthData.user.id,
-    email: data.email,
-    first_name: data.first_name,
-    last_name: data?.last_name,
-  };
-
-  const { error: userError } = await supabase
-    .from('users')
-    .insert(body)
-    .select('*');
-
-  if (userError) {
-    redirect('/login');
-  }
-
-  revalidatePath('/', 'layout');
-
-  redirect('/home');
 }
 
+/**
+ * @description A server action that returns a string after a delay. This is only used to test the server action hook.
+ */
 export async function serverAction() {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return 'Hello';
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return 'Hello';
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 'error',
+      error,
+    };
+  }
 }
