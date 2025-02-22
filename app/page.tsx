@@ -16,8 +16,8 @@ export default function Home() {
     action: serverAction,
     onSuccess: {
       title: 'Success',
-      action: ({ router, data }) => {
-        router.replace('/' + '?data=' + data);
+      action: ({ router, response }) => {
+        router.replace('/' + '?data=' + response?.word);
       },
     },
     onError: {

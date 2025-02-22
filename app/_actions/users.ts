@@ -4,15 +4,52 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-import { TInsertUser } from '@/db/db-schema';
+import { ServerActionResponse } from '@/hooks/use-server-action';
+
+import { TInsertUser, TUser } from '@/db/db-schema';
 import { CreateUserSchema } from '@/db/schema';
 import { createClient } from '@/lib/supabase/server';
 
 import { SigninSchema } from '../(auth)/schemas';
+import UserService from '../_services/user-service';
 
 // Create
 
 // Read
+
+export async function getUser(
+  id: string,
+): Promise<ServerActionResponse<TUser>> {
+  try {
+    const user = await UserService.getUser(id);
+
+    if (!user) {
+      return {
+        status: 'error',
+        data: null,
+        error: {
+          code: '404',
+          message: 'User not found',
+        },
+      };
+    }
+
+    return {
+      status: 'success',
+      data: user,
+      error: null,
+    };
+  } catch (e: unknown) {
+    console.log('[getUser]', JSON.stringify(e, null, 2));
+    return {
+      status: 'error',
+      data: null,
+      error: {
+        message: 'Failed to get user',
+      },
+    };
+  }
+}
 
 // Update
 
@@ -20,7 +57,9 @@ import { SigninSchema } from '../(auth)/schemas';
 
 // Helpers, Utilities, and others
 
-export async function signin(data: z.infer<typeof SigninSchema>) {
+export async function signin(
+  data: z.infer<typeof SigninSchema>,
+): Promise<ServerActionResponse<TUser>> {
   const supabase = await createClient();
 
   try {
@@ -45,12 +84,17 @@ export async function signin(data: z.infer<typeof SigninSchema>) {
     console.error(error);
     return {
       status: 'error',
-      error,
+      error: {
+        message: 'Failed to sign in',
+      },
+      data: null,
     };
   }
 }
 
-export async function signup(data: z.infer<typeof CreateUserSchema>) {
+export async function signup(
+  data: z.infer<typeof CreateUserSchema>,
+): Promise<ServerActionResponse<TUser>> {
   const supabase = await createClient();
 
   try {
@@ -81,12 +125,9 @@ export async function signup(data: z.infer<typeof CreateUserSchema>) {
       last_name: data?.last_name,
     };
 
-    const { error: userError } = await supabase
-      .from('users')
-      .insert(body)
-      .select('*');
+    const [user] = await UserService.createUser(body);
 
-    if (userError) {
+    if (!user) {
       redirect('/login');
     }
 
@@ -97,7 +138,10 @@ export async function signup(data: z.infer<typeof CreateUserSchema>) {
     console.error(error);
     return {
       status: 'error',
-      error,
+      error: {
+        message: 'Failed to sign up',
+      },
+      data: null,
     };
   }
 }
@@ -105,15 +149,28 @@ export async function signup(data: z.infer<typeof CreateUserSchema>) {
 /**
  * @description A server action that returns a string after a delay. This is only used to test the server action hook.
  */
-export async function serverAction() {
+export async function serverAction(): Promise<
+  ServerActionResponse<{
+    word: string;
+  }>
+> {
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return 'Hello';
+    return {
+      status: 'success',
+      data: {
+        word: 'Hello',
+      },
+      error: null,
+    };
   } catch (error) {
     console.error(error);
     return {
       status: 'error',
-      error,
+      error: {
+        message: 'Failed to execute server action',
+      },
+      data: null,
     };
   }
 }

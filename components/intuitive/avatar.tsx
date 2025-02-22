@@ -26,6 +26,7 @@ const getInitials = (name: string | undefined): string => {
 
 const Avatar = memo(({ src, name, ...props }: AvatarProps) => {
   const initials = getInitials(name);
+
   return (
     <AvatarPrimitive {...props}>
       <AvatarImage

@@ -42,8 +42,8 @@ const SignUpPage = () => {
       title: 'Error',
     },
     onSuccess: {
-      action: ({ data }) => {
-        console.info(data);
+      action: ({ response }) => {
+        console.info(response);
       },
       message: 'Signed in successfully',
       title: 'Signed in',

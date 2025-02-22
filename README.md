@@ -201,12 +201,14 @@ export async function createUser(
     return {
       status: 'success',
       data,
+      error: null,
     };
   } catch (error) {
     console.error(error);
     return {
       status: 'error',
       error,
+      data: null,
     };
   }
 }
@@ -219,12 +221,14 @@ export async function getUser(id: string): Promise<ServerActionResponse<TUser>> 
     return {
       status: 'success',
       data,
+      error: null,
     };
   } catch (error) {
     console.error(error);
     return {
       status: 'error',
       error,
+      data: null,
     };
   }
 }
@@ -240,12 +244,14 @@ export async function updateUser(
     return {
       status: 'success',
       data,
+      error: null,
     };
   } catch (error) {
     console.error(error);
     return {
       status: 'error',
       error,
+      data: null,
     };
   }
 }
@@ -258,12 +264,14 @@ export async function deleteUser(id: string): Promise<ServerActionResponse<null>
     return {
       status: 'success',
       data: null,
+      error: null,
     };
   } catch (error) {
     console.error(error);
     return {
       status: 'error',
       error,
+      data: null,
     };
   }
 }

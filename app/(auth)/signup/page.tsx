@@ -41,8 +41,8 @@ const SignUpPage = () => {
       title: 'Error',
     },
     onSuccess: {
-      action: ({ data }) => {
-        console.info(data);
+      action: ({ response }) => {
+        console.info(response);
       },
       message: 'Account created successfully',
       title: 'Account created',

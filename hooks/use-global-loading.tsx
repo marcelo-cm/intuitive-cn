@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import globalLoadingService from '@/services/global-loading-service';
+import globalLoadingService from '@/services/global-loading';
 
 export function useGlobalLoading() {
   const [isLoading, setIsLoading] = useState(globalLoadingService.getState());
