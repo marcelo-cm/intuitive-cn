@@ -1,36 +1,59 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
 
 import { ServerActionResponse } from '@/hooks/use-server-action';
 
-import { TInsertUser, TUser } from '@/db/db-schema';
-import { CreateUserSchema } from '@/db/schema';
-import { createClient } from '@/lib/supabase/server';
-
-import { SigninSchema } from '../(auth)/schemas';
-import UserService from '../_services/user-service';
+import userService from '@/app/_services/user-service';
+import { TInsertUser, TUpdateUser, TUser } from '@/db/db-schema';
 
 // Create
-
-// Read
-
-export async function getUser(
-  id: string,
+export async function createUser(
+  data: TInsertUser & { id: string },
 ): Promise<ServerActionResponse<TUser>> {
   try {
-    const user = await UserService.getUser(id);
+    const [user] = await userService.createUser(data);
 
     if (!user) {
       return {
         status: 'error',
         data: null,
-        error: {
-          code: '404',
-          message: 'User not found',
-        },
+        error: { message: 'Failed to create User' },
+      };
+    }
+
+    revalidatePath('/user');
+
+    return {
+      status: 'success',
+      data: user,
+      error: null,
+    };
+  } catch (error) {
+    console.error('[createUser]', error);
+    return {
+      status: 'error',
+      data: null,
+      error: {
+        message:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+      },
+    };
+  }
+}
+
+// Read (Get)
+export async function getUser(
+  id: string,
+): Promise<ServerActionResponse<TUser>> {
+  try {
+    const user = await userService.getUser(id);
+
+    if (!user) {
+      return {
+        status: 'error',
+        data: null,
+        error: { message: 'User not found' },
       };
     }
 
@@ -39,138 +62,180 @@ export async function getUser(
       data: user,
       error: null,
     };
-  } catch (e: unknown) {
-    console.log('[getUser]', JSON.stringify(e, null, 2));
+  } catch (error) {
+    console.error('[getUser]', error);
     return {
       status: 'error',
       data: null,
       error: {
-        message: 'Failed to get user',
+        message:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+      },
+    };
+  }
+}
+
+// Read (Get All)
+export async function getAllUser(): Promise<ServerActionResponse<TUser[]>> {
+  try {
+    const users = await userService.getAllUser();
+
+    return {
+      status: 'success',
+      data: users,
+      error: null,
+    };
+  } catch (error) {
+    console.error('[getAllUser]', error);
+    return {
+      status: 'error',
+      data: null,
+      error: {
+        message:
+          error instanceof Error ? error.message : 'An unknown error occurred',
       },
     };
   }
 }
 
 // Update
-
-// Delete
-
-// Helpers, Utilities, and others
-
-export async function signin(
-  data: z.infer<typeof SigninSchema>,
+export async function updateUser(
+  id: string,
+  data: TUpdateUser & { id: string },
 ): Promise<ServerActionResponse<TUser>> {
-  const supabase = await createClient();
-
   try {
-    const { data: userAuthData, error: userAuthError } =
-      await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-    if (userAuthError) {
-      throw userAuthError;
-    }
-
-    if (!userAuthData?.user?.id) {
-      throw new Error('No user auth data');
-    }
-
-    revalidatePath('/', 'layout');
-
-    redirect('/home');
-  } catch (error) {
-    console.error(error);
-    return {
-      status: 'error',
-      error: {
-        message: 'Failed to sign in',
-      },
-      data: null,
-    };
-  }
-}
-
-export async function signup(
-  data: z.infer<typeof CreateUserSchema>,
-): Promise<ServerActionResponse<TUser>> {
-  const supabase = await createClient();
-
-  try {
-    const { data: userAuthData, error: userAuthError } =
-      await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          data: {
-            first_name: data.first_name,
-            last_name: data.last_name,
-          },
-        },
-      });
-
-    if (userAuthError) {
-      throw userAuthError;
-    }
-
-    if (!userAuthData?.user?.id) {
-      throw new Error('No user auth data');
-    }
-
-    const body: TInsertUser & { id: string } = {
-      id: userAuthData.user.id,
-      email: data.email,
-      first_name: data.first_name,
-      last_name: data?.last_name,
-    };
-
-    const [user] = await UserService.createUser(body);
+    const [user] = await userService.updateUser(id, data);
 
     if (!user) {
-      redirect('/login');
+      return {
+        status: 'error',
+        data: null,
+        error: { message: 'Failed to update User' },
+      };
     }
 
-    revalidatePath('/', 'layout');
+    revalidatePath('/user');
 
-    redirect('/home');
-  } catch (error) {
-    console.error(error);
-    return {
-      status: 'error',
-      error: {
-        message: 'Failed to sign up',
-      },
-      data: null,
-    };
-  }
-}
-
-/**
- * @description A server action that returns a string after a delay. This is only used to test the server action hook.
- */
-export async function serverAction(): Promise<
-  ServerActionResponse<{
-    word: string;
-  }>
-> {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     return {
       status: 'success',
-      data: {
-        word: 'Hello',
-      },
+      data: user,
       error: null,
     };
   } catch (error) {
-    console.error(error);
+    console.error('[updateUser]', error);
     return {
       status: 'error',
-      error: {
-        message: 'Failed to execute server action',
-      },
       data: null,
+      error: {
+        message:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+      },
+    };
+  }
+}
+
+// Delete
+export async function deleteUser(
+  id: string,
+): Promise<ServerActionResponse<TUser>> {
+  try {
+    const [user] = await userService.deleteUser(id);
+
+    if (!user) {
+      return {
+        status: 'error',
+        data: null,
+        error: { message: 'Failed to delete User' },
+      };
+    }
+
+    revalidatePath('/user');
+
+    return {
+      status: 'success',
+      data: user,
+      error: null,
+    };
+  } catch (error) {
+    console.error('[deleteUser]', error);
+    return {
+      status: 'error',
+      data: null,
+      error: {
+        message:
+          error instanceof Error ? error.message : 'An unknown error occurred',
+      },
+    };
+  }
+}
+
+// Utility
+export async function serverAction(): Promise<
+  ServerActionResponse<{ word: string }>
+> {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return {
+    status: 'success',
+    data: { word: 'Hello' },
+    error: null,
+  };
+}
+
+export async function signup(
+  data: TInsertUser,
+): Promise<ServerActionResponse<TUser>> {
+  try {
+    const [user] = await userService.createUser(data);
+
+    if (!user) {
+      return {
+        status: 'error',
+        data: null,
+        error: { message: 'Failed to create User' },
+      };
+    }
+
+    return {
+      status: 'success',
+      data: user,
+      error: null,
+    };
+  } catch (error) {
+    console.error('[signup]', error);
+    return {
+      status: 'error',
+      data: null,
+      error: { message: 'Failed to create User' },
+    };
+  }
+}
+
+export async function signin(data: {
+  email: string;
+  password: string;
+}): Promise<ServerActionResponse<TUser>> {
+  try {
+    const user = await userService.signin(data.email, data.password);
+
+    if (!user) {
+      return {
+        status: 'error',
+        data: null,
+        error: { message: 'Failed to create User' },
+      };
+    }
+
+    return {
+      status: 'success',
+      data: user,
+      error: null,
+    };
+  } catch (error) {
+    console.error('[signin]', error);
+    return {
+      status: 'error',
+      data: null,
+      error: { message: 'Failed to create User' },
     };
   }
 }

@@ -33,7 +33,7 @@ export default function RootLayout({
         src="//unpkg.com/react-scan/dist/auto.global.js"
       />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-svh font-sans antialiased`}
       >
         {children}
         <Toaster />

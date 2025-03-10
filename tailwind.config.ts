@@ -1,3 +1,4 @@
+import { slate } from '@radix-ui/colors';
 import type { Config } from 'tailwindcss';
 import tailwindAnimatePlugin from 'tailwindcss-animate';
 
@@ -11,6 +12,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        ...slate,
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

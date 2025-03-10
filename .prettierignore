@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+.next
+coverage
+drizzle
+.prettierrc
+*.md
+pnpm-lock.yaml
