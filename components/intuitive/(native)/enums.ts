@@ -28,11 +28,18 @@ enum Shadow {
   LG = 'lg',
 }
 
+enum Orientation {
+  HORIZONTAL = 'horizontal',
+  VERTICAL = 'vertical',
+}
+
 type TVariant = typeof Variant;
 type TSize = typeof Size;
 
 type TShadow = typeof Shadow;
 
-export { Variant, Shadow, Size };
+type TOrientation = typeof Orientation;
 
-export type { TVariant, TShadow, TSize };
+export { Variant, Shadow, Size, Orientation };
+
+export type { TVariant, TShadow, TSize, TOrientation };

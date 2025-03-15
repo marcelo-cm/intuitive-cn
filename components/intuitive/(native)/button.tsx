@@ -8,7 +8,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { Shadow, Size, Variant } from './types';
+import { Orientation, Shadow, Size, Variant } from './enums';
 
 const buttonVariants = cva(
   'inline-flex w-fit relative items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-md text-sm text-nowrap break-keep underline-offset-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 transition-colors duration-200 focus-visible:ring-offset-2 focus-visible:ring-accent',
@@ -31,10 +31,10 @@ const buttonVariants = cva(
         [Variant.LINK]:
           'bg-transparent text-accent hover:text-accent/80 active:text-accent/90 hover:underline hover:backdrop-blur',
         [Variant.OUTLINE]:
-          'border border-input bg-background hover:bg-background/80 active:bg-background/90',
+          'border border-input bg-white hover:bg-gray-50 active:bg-gray-100',
       },
       size: {
-        [Size.XXXS]: 'h-6 min-w-6 px-2 text-xs',
+        [Size.XXXS]: 'h-6 min-w-6 px-2 text-xs rounded-full',
         [Size.XXS]: 'h-7 min-w-7 px-2 text-xs',
         [Size.XS]: 'h-8 min-w-8 px-3 text-xs',
         [Size.SM]: 'h-9 min-w-9 px-3 text-xs',
@@ -154,6 +154,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : 'button';
     const isDisabled = loading || disabled;
+    const hiddenWhenLoading = loading ? 'opacity-0' : 'opacity-100';
 
     return (
       <Comp
@@ -167,26 +168,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-live="polite"
         {...props}
       >
-        {loading && (
-          <Loader2
-            className="absolute top-1/2 left-1/2 size-4 -translate-x-1/2 -translate-y-1/2 animate-spin text-inherit"
-            aria-hidden="true"
-          />
-        )}
+        <Loader2
+          className={cn(
+            'absolute top-1/2 left-1/2 size-4 -translate-x-1/2 -translate-y-1/2 animate-spin text-inherit transition-opacity',
+            loading ? 'opacity-100' : 'opacity-0',
+          )}
+          aria-hidden="true"
+        />
 
         {LeadingIcon && (
           <LeadingIcon
             aria-hidden="true"
-            className={cn({ 'opacity-0': loading }, 'transition-opacity')}
+            className={cn(hiddenWhenLoading, 'transition-opacity ease-in')}
           />
         )}
-        <span className={cn({ 'opacity-0': loading }, 'transition-opacity')}>
+        <span className={cn(hiddenWhenLoading, 'transition-opacity ease-in')}>
           {children}
         </span>
         {TrailingIcon && (
           <TrailingIcon
             aria-hidden="true"
-            className={cn({ 'opacity-0': loading }, 'transition-opacity')}
+            className={cn(hiddenWhenLoading, 'transition-opacity ease-in')}
           />
         )}
 
@@ -206,7 +208,7 @@ interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Label for the button group for screen readers */
   'aria-label': string;
   /** Orientation of the button group */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: Orientation;
   /** Children must be Button components */
   children: React.ReactNode;
 }
@@ -216,7 +218,7 @@ const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
     {
       className,
       'aria-label': ariaLabel,
-      orientation = 'horizontal',
+      orientation = Orientation.HORIZONTAL,
       children,
       ...props
     },
@@ -229,7 +231,7 @@ const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
         aria-label={ariaLabel}
         className={cn(
           'flex gap-2',
-          orientation === 'vertical' ? 'flex-col' : 'flex-row',
+          orientation === Orientation.VERTICAL ? 'flex-col' : 'flex-row',
           className,
         )}
         {...props}

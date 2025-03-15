@@ -1,15 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ArrowRight, CheckCircle } from 'lucide-react';
 
 import { toast } from 'sonner';
 
 import { Button, ButtonGroup } from '@/components/intuitive/(native)/button';
-import { Shadow, Size, Variant } from '@/components/intuitive/(native)/types';
+import {
+  Orientation,
+  Shadow,
+  Size,
+  Variant,
+} from '@/components/intuitive/(native)/enums';
 
 export function ButtonsView() {
+  // changing loading state every 1 second
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoading((prev) => !prev);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="container mx-auto p-6">
       <h1 className="mb-8 text-2xl font-bold">Button Component Showcase</h1>
@@ -109,63 +122,108 @@ export function ButtonsView() {
 
           <div className="flex flex-wrap gap-4">
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XXXS} icon aria-label="3XS Size Icon Button">
+              <Button
+                size={Size.XXXS}
+                icon
+                aria-label="3XS Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">3XS (24px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XXS} icon aria-label="2XS Size Icon Button">
+              <Button
+                size={Size.XXS}
+                icon
+                aria-label="2XS Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">2XS (28px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XS} icon aria-label="XS Size Icon Button">
+              <Button
+                size={Size.XS}
+                icon
+                aria-label="XS Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">XS (32px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.SM} icon aria-label="SM Size Icon Button">
+              <Button
+                size={Size.SM}
+                icon
+                aria-label="SM Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">SM (36px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.MD} icon aria-label="MD Size Icon Button">
+              <Button
+                size={Size.MD}
+                icon
+                aria-label="MD Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">MD (40px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.LG} icon aria-label="LG Size Icon Button">
+              <Button
+                size={Size.LG}
+                icon
+                aria-label="LG Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">LG (44px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XL} icon aria-label="XL Size Icon Button">
+              <Button
+                size={Size.XL}
+                icon
+                aria-label="XL Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">XL (48px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XXL} icon aria-label="2XL Size Icon Button">
+              <Button
+                size={Size.XXL}
+                icon
+                aria-label="2XL Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">2XL (52px)</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <Button size={Size.XXXL} icon aria-label="3XL Size Icon Button">
+              <Button
+                size={Size.XXXL}
+                icon
+                aria-label="3XL Size Icon Button"
+                loading={loading}
+              >
                 <ArrowRight />
               </Button>
               <span className="text-xs text-gray-500">3XL (56px)</span>
@@ -352,7 +410,7 @@ export function ButtonsView() {
             <div className="flex flex-col gap-1">
               <ButtonGroup
                 aria-label="Vertical Button Group"
-                orientation="vertical"
+                orientation={Orientation.VERTICAL}
               >
                 <Button variant={Variant.OUTLINE}>Cancel</Button>
                 <Button variant={Variant.PRIMARY}>Save</Button>
