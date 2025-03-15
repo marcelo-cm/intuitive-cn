@@ -123,7 +123,7 @@ importers:
         specifier: ^2.3.1
         version: 2.3.2(react@19.0.0)
       tailwind-merge:
-        specifier: ^3.0.1
+        specifier: ^3.0.2
         version: 3.0.2
       whatwg-fetch:
         specifier: ^3.6.20
