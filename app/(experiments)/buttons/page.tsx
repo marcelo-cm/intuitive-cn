@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { ButtonsView } from './_components/buttons-view';
+import ButtonsView from './_components/buttons-view';
 
 export const metadata: Metadata = {
   title: 'Buttons',

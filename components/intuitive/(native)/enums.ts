@@ -10,6 +10,12 @@ enum Variant {
   OUTLINE = 'outline',
 }
 
+enum Accent {
+  DESTRUCTIVE = 'destructive',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+}
+
 enum Size {
   XXXS = '3xs',
   XXS = '2xs',
@@ -35,11 +41,10 @@ enum Orientation {
 
 type TVariant = typeof Variant;
 type TSize = typeof Size;
-
 type TShadow = typeof Shadow;
-
 type TOrientation = typeof Orientation;
+type TAccent = typeof Accent;
 
-export { Variant, Shadow, Size, Orientation };
+export { Variant, Shadow, Size, Orientation, Accent };
 
-export type { TVariant, TShadow, TSize, TOrientation };
+export type { TVariant, TShadow, TSize, TOrientation, TAccent };

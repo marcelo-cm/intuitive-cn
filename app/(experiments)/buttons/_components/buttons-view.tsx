@@ -1,474 +1,779 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import {
+  Accessibility,
+  AlertCircle,
+  ArrowRight,
+  BetweenVerticalEnd,
+  Bolt,
+  Brush,
+  Check,
+  CircleDashed,
+  Code,
+  Download,
+  Edit,
+  Group,
+  Layers,
+  Loader,
+  Mail,
+  MousePointerClickIcon,
+  Plus,
+  Ruler,
+  Save,
+  Trash,
+  Upload,
+} from 'lucide-react';
 
 import { toast } from 'sonner';
 
+import { TextLevel } from '@/components/intuitive/(native)/(typography)/enums';
+import { Subtitle } from '@/components/intuitive/(native)/(typography)/subtitle';
+import { Title } from '@/components/intuitive/(native)/(typography)/title';
 import { Button, ButtonGroup } from '@/components/intuitive/(native)/button';
+import CodeBlock from '@/components/intuitive/(native)/code-block';
 import {
+  Accent,
   Orientation,
   Shadow,
   Size,
   Variant,
 } from '@/components/intuitive/(native)/enums';
 
-export function ButtonsView() {
-  // changing loading state every 1 second
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoading((prev) => !prev);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+const ButtonsView = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadingClick = () => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 2000);
+  };
+
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="mb-8 text-2xl font-bold">Button Component Showcase</h1>
-
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-        {/* Size Variants */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Size Variants</h2>
-            <p className="text-sm text-gray-500">
-              Button sizes from smallest (3XS) to largest (3XL)
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <Button
-                size={Size.XXXS}
-                TrailingIcon={ArrowRight}
-                onClick={() => toast.success('Clicked 3XS Button')}
-              >
-                3XS Size
-              </Button>
-              <span className="text-xs text-gray-500">24px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button
-                size={Size.XXS}
-                TrailingIcon={ArrowRight}
-                onClick={() => toast.success('Clicked 2XS Button')}
-              >
-                2XS Size
-              </Button>
-              <span className="text-xs text-gray-500">28px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.XS} TrailingIcon={ArrowRight}>
-                XS Size
-              </Button>
-              <span className="text-xs text-gray-500">32px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.SM} TrailingIcon={ArrowRight}>
-                SM Size
-              </Button>
-              <span className="text-xs text-gray-500">36px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.MD} TrailingIcon={ArrowRight}>
-                MD Size (Default)
-              </Button>
-              <span className="text-xs text-gray-500">40px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.LG} TrailingIcon={ArrowRight}>
-                LG Size
-              </Button>
-              <span className="text-xs text-gray-500">44px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.XL} TrailingIcon={ArrowRight}>
-                XL Size
-              </Button>
-              <span className="text-xs text-gray-500">48px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.XXL} TrailingIcon={ArrowRight}>
-                2XL Size
-              </Button>
-              <span className="text-xs text-gray-500">52px height</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button size={Size.XXXL} TrailingIcon={ArrowRight}>
-                3XL Size
-              </Button>
-              <span className="text-xs text-gray-500">56px height</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Icon Buttons */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Icon-Only Buttons</h2>
-            <p className="text-sm text-gray-500">
-              Square buttons with responsive sizing
-            </p>
-          </div>
-
+    <div className="mx-auto w-full max-w-4xl space-y-16 px-4 py-16">
+      <section className="space-y-4">
+        <Title LeadingIcon={MousePointerClickIcon} isSectionHeading>
+          Buttons
+        </Title>
+        <Subtitle>
+          Built with Radix, Tailwind, strongly typed with enums, and with web
+          accessibility in mind.
+        </Subtitle>
+        <p className="text-muted-foreground">
+          Controlled entirely with CSS variables, this button is built to cover
+          the advanced use cases of buttons across web-apps. It has a
+          comprehensive set of properties to minimize the custom CSS and code
+          needed.
+        </p>
+        <p className="text-accent text-sm">
+          Perhaps it is the most opinionated button component you will ever
+          use... but it is also the most powerful.
+        </p>
+      </section>
+      <hr />
+      {/* Variants Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Bolt} isSectionHeading>
+          Variants
+        </Title>
+        <Subtitle>
+          Button comes with different variants to represent different actions.
+        </Subtitle>
+        <div className="rounded-lg bg-gray-50 p-6">
           <div className="flex flex-wrap gap-4">
-            <div className="flex flex-col items-center gap-1">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Generic</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button variant={Variant.PRIMARY}>Primary</Button>
+                <Button variant={Variant.SECONDARY}>Secondary</Button>
+                <Button variant={Variant.GHOST}>Ghost</Button>
+                <Button variant={Variant.LINK}>Link</Button>
+                <Button variant={Variant.OUTLINE}>Outline</Button>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Indicators</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button variant={Variant.ACCENT}>Accent</Button>
+                <Button variant={Variant.DESTRUCTIVE}>Destructive</Button>
+                <Button variant={Variant.SUCCESS}>Success</Button>
+                <Button variant={Variant.WARNING}>Warning</Button>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Inverted</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button invert variant={Variant.PRIMARY}>
+                  Primary
+                </Button>
+                <Button invert variant={Variant.SECONDARY}>
+                  Secondary
+                </Button>
+                <Button invert variant={Variant.ACCENT}>
+                  Accent
+                </Button>
+                <Button invert variant={Variant.DESTRUCTIVE}>
+                  Destructive
+                </Button>
+                <Button invert variant={Variant.SUCCESS}>
+                  Success
+                </Button>
+                <Button invert variant={Variant.WARNING}>
+                  Warning
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <CodeBlock
+          code={`<Button variant={Variant.PRIMARY}>Primary</Button>
+<Button variant={Variant.SECONDARY}>Secondary</Button>
+<Button variant={Variant.GHOST}>Ghost</Button>
+<Button variant={Variant.LINK}>Link</Button>
+<Button variant={Variant.OUTLINE}>Outline</Button>
+<Button variant={Variant.ACCENT}>Accent</Button>
+<Button variant={Variant.DESTRUCTIVE}>Destructive</Button>
+<Button variant={Variant.SUCCESS}>Success</Button>
+<Button variant={Variant.WARNING}>Warning</Button>
+
+// Inverted colors — Swaps the foreground and background colors
+<Button invert variant={Variant.PRIMARY}>Primary</Button>
+<Button invert variant={Variant.SECONDARY}>Secondary</Button>
+<Button invert variant={Variant.ACCENT}>Accent</Button>
+<Button invert variant={Variant.DESTRUCTIVE}>Destructive</Button>
+<Button invert variant={Variant.SUCCESS}>Success</Button>
+<Button invert variant={Variant.WARNING}>Warning</Button>`}
+        />
+      </section>
+
+      {/* Sizes Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Ruler} isSectionHeading>
+          Sizes
+        </Title>
+        <Subtitle>
+          Buttons come in multiple sizes to fit various UI contexts.
+        </Subtitle>
+
+        <div className="rounded-lg bg-gray-50 p-6">
+          <div className="flex flex-wrap items-center gap-4">
+            <Button size={Size.XXXS}>XXXS</Button>
+            <Button size={Size.XXS}>XXS</Button>
+            <Button size={Size.XS}>XS</Button>
+            <Button size={Size.SM}>SM</Button>
+            <Button size={Size.MD}>MD</Button>
+            <Button size={Size.LG}>LG</Button>
+            <Button size={Size.XL}>XL</Button>
+            <Button size={Size.XXL}>XXL</Button>
+            <Button size={Size.XXXL}>XXXL</Button>
+          </div>
+        </div>
+
+        <CodeBlock
+          code={`<Button size={Size.XXXS}>XXXS</Button>
+<Button size={Size.XXS}>XXS</Button>
+<Button size={Size.XS}>XS</Button>
+<Button size={Size.SM}>SM</Button>
+<Button size={Size.MD}>MD</Button>
+<Button size={Size.LG}>LG</Button>
+<Button size={Size.XL}>XL</Button>
+<Button size={Size.XXL}>XXL</Button>
+<Button size={Size.XXXL}>XXXL</Button>`}
+        />
+      </section>
+
+      {/* Icon Buttons Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={CircleDashed} isSectionHeading level={TextLevel.H3}>
+          Icon Buttons
+        </Title>
+        <Subtitle>
+          Buttons can be configured as icon-only buttons in various sizes.
+        </Subtitle>
+
+        <div className="rounded-lg bg-gray-50 p-6">
+          <div className="flex flex-wrap items-center gap-4">
+            <Button icon size={Size.XXXS} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.XXS} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.XS} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.SM} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.MD} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.LG} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.XL} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.XXL} aria-label="Add item">
+              <Plus />
+            </Button>
+            <Button icon size={Size.XXXL} aria-label="Add item">
+              <Plus />
+            </Button>
+          </div>
+        </div>
+
+        <CodeBlock
+          code={`<Button icon size={Size.XXXS} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.XXS} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.XS} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.SM} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.MD} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.LG} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.XL} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.XXL} aria-label="Add item"><Plus /></Button>
+<Button icon size={Size.XXXL} aria-label="Add item"><Plus /></Button>`}
+        />
+      </section>
+
+      {/* Rounded & Shadow Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Layers} isSectionHeading level={TextLevel.H3}>
+          Rounded & Shadow Variants
+        </Title>
+        <Subtitle>
+          Buttons can have rounded corners and different shadow depths.
+        </Subtitle>
+
+        <div className="rounded-lg bg-gray-50 p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Rounded</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button rounded>Rounded</Button>
+                <Button rounded icon aria-label="Add">
+                  <Plus />
+                </Button>
+              </div>
+            </div>
+            <div className="col-span-2">
+              <h3 className="mb-3 text-lg font-medium">Shadow</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button shadow={Shadow.SM}>Small Shadow</Button>
+                <Button shadow={Shadow.MD}>Medium Shadow</Button>
+                <Button shadow={Shadow.LG}>Large Shadow</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <CodeBlock
+          code={`// Rounded buttons
+<Button rounded>Rounded</Button>
+<Button rounded variant={Variant.SECONDARY}>Rounded</Button>
+<Button rounded variant={Variant.OUTLINE}>Rounded</Button>
+<Button rounded icon aria-label="Add"><Plus /></Button>
+
+// Shadow variants
+<Button shadow={Shadow.SM}>Small Shadow</Button>
+<Button shadow={Shadow.MD}>Medium Shadow</Button>
+<Button shadow={Shadow.LG}>Large Shadow</Button>`}
+        />
+      </section>
+
+      {/* Accent & Invert Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Brush} isSectionHeading level={TextLevel.H3}>
+          Accent & Invert Variants
+        </Title>
+        <Subtitle>
+          Buttons can have accent colors and inverted color schemes.
+        </Subtitle>
+        <p className="text-muted-foreground text-sm">
+          Please hover over the buttons to see the accent colors.
+        </p>
+
+        <div className="mb-4 rounded-lg bg-gray-50 p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Accent Colors</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button variant={Variant.GHOST} accent={Accent.DESTRUCTIVE}>
+                  Destructive
+                </Button>
+                <Button variant={Variant.GHOST} accent={Accent.SUCCESS}>
+                  Success
+                </Button>
+                <Button variant={Variant.GHOST} accent={Accent.WARNING}>
+                  Warning
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="mt-6">
+            <h3 className="mb-3 text-lg font-medium">Inverted Accent</h3>
+            <div className="flex flex-wrap gap-4">
               <Button
-                size={Size.XXXS}
-                icon
-                aria-label="3XS Size Icon Button"
-                loading={loading}
+                variant={Variant.GHOST}
+                accent={Accent.DESTRUCTIVE}
+                invertAccent
               >
-                <ArrowRight />
+                Inverted Destructive
               </Button>
-              <span className="text-xs text-gray-500">3XS (24px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
               <Button
-                size={Size.XXS}
-                icon
-                aria-label="2XS Size Icon Button"
-                loading={loading}
+                variant={Variant.GHOST}
+                accent={Accent.SUCCESS}
+                invertAccent
               >
-                <ArrowRight />
+                Inverted Success
               </Button>
-              <span className="text-xs text-gray-500">2XS (28px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
               <Button
-                size={Size.XS}
-                icon
-                aria-label="XS Size Icon Button"
-                loading={loading}
+                variant={Variant.GHOST}
+                accent={Accent.WARNING}
+                invertAccent
               >
-                <ArrowRight />
+                Inverted Warning
               </Button>
-              <span className="text-xs text-gray-500">XS (32px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.SM}
-                icon
-                aria-label="SM Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">SM (36px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.MD}
-                icon
-                aria-label="MD Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">MD (40px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.LG}
-                icon
-                aria-label="LG Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">LG (44px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.XL}
-                icon
-                aria-label="XL Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">XL (48px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.XXL}
-                icon
-                aria-label="2XL Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">2XL (52px)</span>
-            </div>
-
-            <div className="flex flex-col items-center gap-1">
-              <Button
-                size={Size.XXXL}
-                icon
-                aria-label="3XL Size Icon Button"
-                loading={loading}
-              >
-                <ArrowRight />
-              </Button>
-              <span className="text-xs text-gray-500">3XL (56px)</span>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Button Variants */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Style Variants</h2>
-            <p className="text-sm text-gray-500">
-              Different visual styles for different use cases
-            </p>
+        <CodeBlock
+          code={`import { Button } from "@/components/ui/button"
+import { Accent, Variant } from "@/components/ui/button/enums"
+
+// Accent colors
+<Button variant={Variant.GHOST} accent={Accent.DESTRUCTIVE}>Destructive</Button>
+<Button variant={Variant.GHOST} accent={Accent.SUCCESS}>Success</Button>
+<Button variant={Variant.GHOST} accent={Accent.WARNING}>Warning</Button>
+
+// Inverted colors
+<Button invert variant={Variant.PRIMARY}>Inverted Primary</Button>
+<Button invert variant={Variant.SECONDARY}>Inverted Secondary</Button>
+<Button invert variant={Variant.DESTRUCTIVE}>Inverted Destructive</Button>
+
+// Inverted accent colors
+<Button variant={Variant.GHOST} accent={Accent.DESTRUCTIVE} invertAccent>Inverted Destructive</Button>
+<Button variant={Variant.GHOST} accent={Accent.SUCCESS} invertAccent>Inverted Success</Button>
+<Button variant={Variant.GHOST} accent={Accent.WARNING} invertAccent>Inverted Warning</Button>`}
+        />
+      </section>
+
+      {/* States Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Loader} isSectionHeading level={TextLevel.H3}>
+          States
+        </Title>
+        <Subtitle>
+          Buttons can be disabled or show a loading state. In the loading state
+          it preserves it&apos;s width. to prevent layout shifts. While loading
+          the button is not interactive.
+        </Subtitle>
+
+        <div className="mb-4 rounded-lg bg-gray-50 p-6">
+          <div className="flex flex-wrap gap-4">
+            <Button disabled>Disabled</Button>
+            <Button loading>Loading</Button>
+            <Button
+              onClick={handleLoadingClick}
+              loading={isLoading}
+              LeadingIcon={MousePointerClickIcon}
+            >
+              Click to Load
+            </Button>
           </div>
+        </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.PRIMARY}>Primary</Button>
-              <span className="text-xs text-gray-500">
-                Default, used for primary actions
-              </span>
-            </div>
+        <CodeBlock
+          code={`export function LoadingButtonExample() {
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 2000)
+  }
 
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.SECONDARY}>Secondary</Button>
-              <span className="text-xs text-gray-500">
-                Used for secondary actions
-              </span>
-            </div>
+  return (
+    <React.Fragment>
+      {/* Disabled button */}
+      <Button disabled>Disabled</Button>
+      
+      {/* Always loading button */}
+      <Button loading>Loading</Button>
+      
+      {/* Loading button that toggles state */}
+      <Button onClick={handleClick} loading={isLoading} LeadingIcon={MousePointerClickIcon}>
+        Click to Load
+      </Button>
+    </React.Fragment>
+  )
+}`}
+        />
+      </section>
 
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.ACCENT}>Accent</Button>
-              <span className="text-xs text-gray-500">
-                Used for highlighting actions
-              </span>
-            </div>
+      {/* With Icons Section */}
+      <section className="space-y-4">
+        <Title
+          LeadingIcon={BetweenVerticalEnd}
+          isSectionHeading
+          level={TextLevel.H3}
+        >
+          With Icons
+        </Title>
+        <Subtitle>Buttons can include leading and trailing icons.</Subtitle>
 
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.DESTRUCTIVE}>Destructive</Button>
-              <span className="text-xs text-gray-500">
-                For dangerous actions like delete
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.SUCCESS}>Success</Button>
-              <span className="text-xs text-gray-500">
-                For successful actions
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.WARNING}>Warning</Button>
-              <span className="text-xs text-gray-500">
-                For cautionary actions
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.GHOST}>Ghost</Button>
-              <span className="text-xs text-gray-500">
-                Low emphasis, background only on hover
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.LINK}>Link</Button>
-              <span className="text-xs text-gray-500">
-                Appears as a text link
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button variant={Variant.OUTLINE}>Outline</Button>
-              <span className="text-xs text-gray-500">Bordered version</span>
-            </div>
+        <div className="mb-4 rounded-lg bg-gray-50 p-6">
+          <div className="flex flex-wrap gap-4">
+            <Button LeadingIcon={Mail}>Email</Button>
+            <Button TrailingIcon={ArrowRight}>Next</Button>
+            <Button LeadingIcon={Download} TrailingIcon={ArrowRight}>
+              Download
+            </Button>
+            <Button variant={Variant.DESTRUCTIVE} LeadingIcon={Trash}>
+              Delete
+            </Button>
+            <Button variant={Variant.SUCCESS} LeadingIcon={Check}>
+              Approve
+            </Button>
+            <Button variant={Variant.WARNING} LeadingIcon={AlertCircle}>
+              Warning
+            </Button>
           </div>
-        </section>
+        </div>
 
-        {/* Shadows */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Shadow Variants</h2>
-            <p className="text-sm text-gray-500">
-              Different shadow depths for elevation
-            </p>
-          </div>
+        <CodeBlock
+          code={`<Button LeadingIcon={Mail}>Email</Button>
+<Button TrailingIcon={ArrowRight}>Next</Button>
+<Button LeadingIcon={Download} TrailingIcon={ArrowRight}>Download</Button>
 
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <Button shadow={Shadow.SM}>Small Shadow</Button>
-              <span className="text-xs text-gray-500">Subtle elevation</span>
-            </div>
+// Variant buttons with icons
+<Button variant={Variant.DESTRUCTIVE} LeadingIcon={Trash}>Delete</Button>
+<Button variant={Variant.SUCCESS} LeadingIcon={Check}>Approve</Button>
+<Button variant={Variant.WARNING} LeadingIcon={AlertCircle}>Warning</Button>`}
+        />
+      </section>
 
-            <div className="flex flex-col gap-1">
-              <Button shadow={Shadow.MD}>Medium Shadow</Button>
-              <span className="text-xs text-gray-500">Medium elevation</span>
-            </div>
+      {/* Button Group Section */}
+      <section>
+        <Title LeadingIcon={Group} isSectionHeading level={TextLevel.H3}>
+          Button Group
+        </Title>
+        <Subtitle>
+          Related buttons can be grouped together for accessibility and
+          organization.
+        </Subtitle>
 
-            <div className="flex flex-col gap-1">
-              <Button shadow={Shadow.LG}>Large Shadow</Button>
-              <span className="text-xs text-gray-500">Maximum elevation</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Button States */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Button States</h2>
-            <p className="text-sm text-gray-500">
-              Different interaction states
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <Button disabled>Disabled Button</Button>
-              <span className="text-xs text-gray-500">
-                50% opacity, no interactions
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button loading>Loading Button</Button>
-              <span className="text-xs text-gray-500">
-                Shows spinner, disabled
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* Button with Icons */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Icon Placement</h2>
-            <p className="text-sm text-gray-500">
-              Buttons with leading and trailing icons
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <Button LeadingIcon={ArrowRight}>Leading Icon</Button>
-              <span className="text-xs text-gray-500">Icon before text</span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button TrailingIcon={ArrowRight}>Trailing Icon</Button>
-              <span className="text-xs text-gray-500">Icon after text</span>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <Button LeadingIcon={CheckCircle} TrailingIcon={ArrowRight}>
-                Both Icons
-              </Button>
-              <span className="text-xs text-gray-500">Icons on both sides</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Button Group */}
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Button Groups</h2>
-            <p className="text-sm text-gray-500">
-              Related buttons grouped together
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <div className="flex flex-col gap-1">
-              <ButtonGroup aria-label="Horizontal Button Group">
-                <Button variant={Variant.OUTLINE}>Cancel</Button>
-                <Button variant={Variant.PRIMARY}>Save</Button>
-                <Button variant={Variant.SUCCESS}>Publish</Button>
+        <div className="mb-4 rounded-lg bg-gray-50 p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Horizontal</h3>
+              <ButtonGroup aria-label="File actions">
+                <Button variant={Variant.OUTLINE} LeadingIcon={Edit}>
+                  Edit
+                </Button>
+                <Button variant={Variant.OUTLINE} LeadingIcon={Save}>
+                  Save
+                </Button>
+                <Button variant={Variant.OUTLINE} LeadingIcon={Upload}>
+                  Upload
+                </Button>
               </ButtonGroup>
-              <span className="text-xs text-gray-500">
-                Horizontal orientation (default)
-              </span>
             </div>
-
-            <div className="flex flex-col gap-1">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Vertical</h3>
               <ButtonGroup
-                aria-label="Vertical Button Group"
+                aria-label="Navigation actions"
                 orientation={Orientation.VERTICAL}
               >
-                <Button variant={Variant.OUTLINE}>Cancel</Button>
-                <Button variant={Variant.PRIMARY}>Save</Button>
-                <Button variant={Variant.SUCCESS}>Publish</Button>
+                <Button variant={Variant.OUTLINE}>Home</Button>
+                <Button variant={Variant.OUTLINE}>Products</Button>
+                <Button variant={Variant.OUTLINE}>About</Button>
               </ButtonGroup>
-              <span className="text-xs text-gray-500">
-                Vertical orientation
-              </span>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section className="space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">Documentation</h2>
-            <p className="text-sm text-gray-500">Developer resources</p>
-          </div>
+        <CodeBlock
+          code={`// Horizontal button group (default)
+<ButtonGroup aria-label="File actions">
+  <Button variant={Variant.OUTLINE} LeadingIcon={Edit}>Edit</Button>
+  <Button variant={Variant.OUTLINE} LeadingIcon={Save}>Save</Button>
+  <Button variant={Variant.OUTLINE} LeadingIcon={Upload}>Upload</Button>
+</ButtonGroup>
 
-          <div className="flex flex-col gap-4">
-            <div className="rounded bg-gray-100 p-4">
-              <h3 className="font-medium">Component API</h3>
-              <p className="mt-1 text-sm">Key props overview:</p>
-              <ul className="mt-2 list-inside list-disc text-sm">
-                <li>
-                  <code className="rounded bg-gray-200 px-1 py-0.5 text-xs">
-                    size
-                  </code>{' '}
-                  - Button dimensions (XXXS to XXXL)
-                </li>
-                <li>
-                  <code className="rounded bg-gray-200 px-1 py-0.5 text-xs">
-                    rounded
-                  </code>{' '}
-                  - Fully rounded button
-                </li>
-                <li>
-                  <code className="rounded bg-gray-200 px-1 py-0.5 text-xs">
-                    variant
-                  </code>{' '}
-                  - Visual style
-                </li>
-                <li>
-                  <code className="rounded bg-gray-200 px-1 py-0.5 text-xs">
-                    icon
-                  </code>{' '}
-                  - Icon-only mode
-                </li>
-                <li>
-                  <code className="rounded bg-gray-200 px-1 py-0.5 text-xs">
-                    loading
-                  </code>{' '}
-                  - Loading state
-                </li>
-              </ul>
+// Vertical button group
+<ButtonGroup aria-label="Navigation actions" orientation={Orientation.VERTICAL}>
+  <Button variant={Variant.OUTLINE}>Home</Button>
+  <Button variant={Variant.OUTLINE}>Products</Button>
+  <Button variant={Variant.OUTLINE}>About</Button>
+</ButtonGroup>`}
+        />
+      </section>
+
+      {/* Accessibility Section */}
+      <section className="space-y-4">
+        <Title
+          LeadingIcon={Accessibility}
+          isSectionHeading
+          level={TextLevel.H3}
+        >
+          Accessibility
+        </Title>
+        <div className="mb-4 rounded-lg bg-gray-50 p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Icon Buttons</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  icon
+                  aria-label="Add item"
+                  description="Adds a new item to your collection"
+                >
+                  <Plus />
+                </Button>
+                <Button
+                  icon
+                  variant={Variant.DESTRUCTIVE}
+                  aria-label="Delete item"
+                >
+                  <Trash />
+                </Button>
+              </div>
+            </div>
+            <div>
+              <h3 className="mb-3 text-lg font-medium">Loading State</h3>
+              <div className="flex flex-wrap gap-4">
+                <Button loading aria-label="Saving document">
+                  Save
+                </Button>
+              </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+
+        <CodeBlock
+          code={`// Icon button with aria-label and description
+<Button 
+  icon 
+  aria-label="Add item" 
+  description="Adds a new item to your collection"
+>
+  <Plus />
+</Button>
+
+// Icon button with aria-label
+<Button 
+  icon 
+  variant={Variant.DESTRUCTIVE} 
+  aria-label="Delete item"
+>
+  <Trash />
+</Button>
+
+// Loading button with aria-label
+<Button loading aria-label="Saving document">
+  Save
+</Button>`}
+        />
+      </section>
+
+      {/* API Reference Section */}
+      <section className="space-y-4">
+        <Title LeadingIcon={Code} isSectionHeading level={TextLevel.H3}>
+          API Reference
+        </Title>
+        <Subtitle>Complete reference for the Button component props.</Subtitle>
+
+        <div className="overflow-hidden rounded-lg border bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                  Prop
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                  Type
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                  Default
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 bg-white">
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">variant</td>
+                <td className="px-4 py-3 text-sm text-gray-500">Variant</td>
+                <td className="px-4 py-3 text-sm text-gray-500">PRIMARY</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  The visual style of the button
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">size</td>
+                <td className="px-4 py-3 text-sm text-gray-500">Size</td>
+                <td className="px-4 py-3 text-sm text-gray-500">MD</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  The size of the button
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">icon</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether the button is an icon button
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">rounded</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether the button has fully rounded corners
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">shadow</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  boolean | Shadow
+                </td>
+                <td className="px-4 py-3 text-sm text-gray-500">undefined</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  The shadow depth of the button
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">accent</td>
+                <td className="px-4 py-3 text-sm text-gray-500">Accent</td>
+                <td className="px-4 py-3 text-sm text-gray-500">undefined</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  The accent color of the button
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">invert</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether to invert the button colors
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">invertAccent</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether to invert the accent colors
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">asChild</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether to merge props with child element
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">LeadingIcon</td>
+                <td className="px-4 py-3 text-sm text-gray-500">LucideIcon</td>
+                <td className="px-4 py-3 text-sm text-gray-500">undefined</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Icon to display before the button text
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">TrailingIcon</td>
+                <td className="px-4 py-3 text-sm text-gray-500">LucideIcon</td>
+                <td className="px-4 py-3 text-sm text-gray-500">undefined</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Icon to display after the button text
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">loading</td>
+                <td className="px-4 py-3 text-sm text-gray-500">boolean</td>
+                <td className="px-4 py-3 text-sm text-gray-500">false</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Whether the button is in a loading state
+                </td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-sm font-medium">description</td>
+                <td className="px-4 py-3 text-sm text-gray-500">string</td>
+                <td className="px-4 py-3 text-sm text-gray-500">undefined</td>
+                <td className="px-4 py-3 text-sm text-gray-500">
+                  Description for screen readers
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="rounded-lg border bg-gray-50 p-6">
+          <Button
+            variant={Variant.PRIMARY}
+            size={Size.MD}
+            icon={false}
+            rounded={false}
+            shadow={Shadow.MD}
+            accent={Accent.SUCCESS}
+            invert={false}
+            invertAccent
+            asChild={false}
+            LeadingIcon={Save}
+            TrailingIcon={ArrowRight}
+            loading={false}
+            disabled={false}
+            description="Save the current document"
+            aria-label="Save document"
+            onClick={() => toast.success('Button clicked')}
+          >
+            Save Document
+          </Button>
+        </div>
+        <CodeBlock
+          code={`import { Button, ButtonGroup, ButtonProps } from "@/components/ui/button"
+import { Accent, Orientation, Shadow, Size, Variant } from "@/components/ui/button/enums"
+
+// Example of using all props
+<Button
+  variant={Variant.PRIMARY}
+  size={Size.MD}
+  icon={false}
+  rounded={false}
+  shadow={Shadow.MD}
+  accent={Accent.SUCCESS}
+  invert={false}
+  invertAccent
+  asChild={false}
+  LeadingIcon={Save}
+  TrailingIcon={ArrowRight}
+  loading={false}
+  disabled={false}
+  description="Save the current document"
+  aria-label="Save document"
+  onClick={handleSave}
+>
+  Save Document
+</Button>
+
+// ButtonGroup props
+<ButtonGroup
+  aria-label="Document actions"
+  orientation={Orientation.HORIZONTAL}
+>
+  {/* Button children */}
+</ButtonGroup>`}
+        />
+      </section>
     </div>
   );
-}
+};
+
+export default ButtonsView;
