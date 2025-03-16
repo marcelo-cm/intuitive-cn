@@ -192,12 +192,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ? 'opacity-0 pointer-events-none select-none'
       : 'opacity-100';
 
-    if (icon && !ariaLabel && !description) {
-      console.warn(
-        'Button: icon prop is true but no aria-label or description is provided',
-      );
-    }
-
     return (
       <Comp
         className={cn(
