@@ -4,7 +4,7 @@ import { Subtitle } from '@/components/intuitive-ui/(native)/(typography)/subtit
 import { Title } from '@/components/intuitive-ui/(native)/(typography)/title';
 
 import DashedGridGutter from './_components/dashed-grid-gutter';
-import TableOfContents from './_components/table-of-contents/table-of-contents';
+import TableOfContents from './_components/table-of-contents';
 
 export default function Home() {
   return (

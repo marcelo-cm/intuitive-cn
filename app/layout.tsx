@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
 
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 import './globals.css';
 
@@ -32,12 +33,14 @@ export default function RootLayout({
         crossOrigin="anonymous"
         src="//unpkg.com/react-scan/dist/auto.global.js"
       />
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-svh font-sans antialiased`}
-      >
-        {children}
-        <Toaster />
-      </body>
+      <TooltipProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} min-h-svh font-sans antialiased`}
+        >
+          {children}
+          <Toaster />
+        </body>
+      </TooltipProvider>
     </html>
   );
 }

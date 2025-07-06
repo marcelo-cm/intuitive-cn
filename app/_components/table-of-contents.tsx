@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
 
-import { TABLE_OF_CONTENTS_ITEMS } from './table-of-contents-constants';
+import { TABLE_OF_CONTENTS_ITEMS } from '../[topic]/_constants/table-of-contents-constants';
 
 const TableOfContents = () => {
   return (
