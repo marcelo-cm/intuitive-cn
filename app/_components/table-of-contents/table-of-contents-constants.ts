@@ -20,20 +20,20 @@ import {
   Zap,
 } from 'lucide-react';
 
-interface TTableOfContentsItem {
+interface ITableOfContentsItem {
   Icon: ElementType;
   title: string;
   description?: string;
   href: string;
 }
 
-interface TTableOfContentsGroup {
+interface ITableOfContentsGroup {
   Icon: ElementType;
   title: string;
-  items: TTableOfContentsItem[];
+  items: ITableOfContentsItem[];
 }
 
-export const TABLE_OF_CONTENTS_ITEMS: TTableOfContentsGroup[] = [
+export const TABLE_OF_CONTENTS_ITEMS: ITableOfContentsGroup[] = [
   {
     title: 'Docs',
     Icon: Book,
