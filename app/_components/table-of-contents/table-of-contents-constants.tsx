@@ -2,6 +2,7 @@ import { ElementType } from 'react';
 
 import {
   Book,
+  BookOpen,
   Copy,
   Database,
   FileWarning,
@@ -35,6 +36,11 @@ export const TABLE_OF_CONTENTS_ITEMS: TTableOfContentsGroup[] = [
     title: 'Docs',
     Icon: Book,
     items: [
+      {
+        title: 'Getting Started—What is this, and why does it exist?',
+        href: '/docs/getting-started',
+        Icon: BookOpen,
+      },
       {
         title: 'File Structure, Organization, and Naming Conventions',
         href: '/docs/file-structure-organization-and-naming-conventions',

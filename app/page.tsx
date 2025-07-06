@@ -8,8 +8,8 @@ import TableOfContents from './_components/table-of-contents/table-of-contents';
 
 export default function Home() {
   return (
-    <main className="flex min-h-dvh flex-grow flex-col justify-center">
-      <div className="flex flex-col gap-8 p-12 sm:p-16">
+    <main className="flex min-h-dvh flex-grow flex-col justify-start sm:justify-center">
+      <div className="flex flex-col gap-8 p-6 py-24 sm:px-16">
         <div>
           <Title>the repository</Title>
           <Subtitle balance>

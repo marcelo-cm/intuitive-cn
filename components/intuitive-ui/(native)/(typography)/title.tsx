@@ -8,7 +8,7 @@ import { Size } from '../component-enums';
 import { TextLevel, TextTransform } from './typography-enums';
 
 const titleVariants = cva(
-  'tracking-tight break-words font-semibold flex items-center mb-2',
+  'tracking-tight break-words font-medium flex items-center mb-2',
   {
     variants: {
       level: {
