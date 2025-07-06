@@ -3,7 +3,6 @@
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
-@config '../tailwind.config.ts';
 
 :root {
   --radius: 0.75rem;
@@ -138,4 +137,12 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+svg {
+  stroke-width: 1.5;
+}
+
+* {
+  text-underline-offset: 0.125em;
 }

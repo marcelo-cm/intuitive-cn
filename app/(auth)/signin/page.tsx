@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FormLabelWithMessage } from '@/components/intuitive/(forms)/form-label-with-message';
+import { FormLabelWithMessage } from '@/components/intuitive-ui/(forms)/form-label-with-message';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input';
 
 import { signin } from '@/models/user/user-actions';
 
-import { SigninSchema } from '../auth-schemas';
+import { SigninSchema } from '../_schemas/auth-schemas';
 
 const SignInPage = () => {
   const form = useForm<z.infer<typeof SigninSchema>>({

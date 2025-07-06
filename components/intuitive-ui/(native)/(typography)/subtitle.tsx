@@ -4,15 +4,15 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { Size } from '../enums';
-import { TextLevel, TextTransform } from './enums';
+import { Size } from '../component-enums';
+import { TextLevel, TextTransform } from './typography-enums';
 
 const subtitleVariants = cva(
   'tracking-tight break-words mb-4 flex items-center gap-2',
   {
     variants: {
       level: {
-        [TextLevel.H1]: 'text-3xl text-foreground [&_svg]:size-6',
+        [TextLevel.H1]: 'text-3xl text-foreground',
         [TextLevel.H2]: 'text-2xl text-foreground',
         [TextLevel.H3]: 'text-xl text-foreground',
         [TextLevel.H4]: 'text-lg text-muted-foreground',
@@ -86,6 +86,11 @@ const Subtitle = React.forwardRef<
     },
     ref,
   ) => {
+    if (balance && pretty) {
+      throw new Error(
+        'balance and pretty cannot be used together. please use one or the other.',
+      );
+    }
     // Determine the component to render
     const Comp = level as React.ElementType;
 

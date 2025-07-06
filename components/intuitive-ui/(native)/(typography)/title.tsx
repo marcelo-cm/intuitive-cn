@@ -4,11 +4,11 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { Size } from '../enums';
-import { TextLevel, TextTransform } from './enums';
+import { Size } from '../component-enums';
+import { TextLevel, TextTransform } from './typography-enums';
 
 const titleVariants = cva(
-  'text-foreground tracking-tight break-words font-semibold flex items-center mb-2',
+  'tracking-tight break-words font-semibold flex items-center mb-2',
   {
     variants: {
       level: {
@@ -86,6 +86,11 @@ const Title = React.forwardRef<
     },
     ref,
   ) => {
+    if (balance && pretty) {
+      throw new Error(
+        'balance and pretty cannot be used together. please use one or the other.',
+      );
+    }
     // Determine the component to render
     const Comp = level as React.ElementType;
 

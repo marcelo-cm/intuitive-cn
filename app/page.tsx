@@ -1,17 +1,25 @@
 'use client';
 
-import { toast } from 'sonner';
+import { Subtitle } from '@/components/intuitive-ui/(native)/(typography)/subtitle';
+import { Title } from '@/components/intuitive-ui/(native)/(typography)/title';
 
-import { Button } from '@/components/ui/button';
+import DashedGridGutter from './_components/dashed-grid-gutter';
+import TableOfContents from './_components/table-of-contents/table-of-contents';
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      <main>
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <Button onClick={() => toast.success('Hello')}>Toast</Button>
+    <main className="flex min-h-dvh flex-grow flex-col justify-center">
+      <div className="flex flex-col gap-8 p-12 sm:p-16">
+        <div>
+          <Title>the repository</Title>
+          <Subtitle balance>
+            components built for design engineering. patterns optimized for
+            codegen, and scale.
+          </Subtitle>
         </div>
-      </main>
-    </div>
+        <TableOfContents />
+      </div>
+      <DashedGridGutter />
+    </main>
   );
 }

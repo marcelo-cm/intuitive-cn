@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { FormLabelWithMessage } from '@/components/intuitive/(forms)/form-label-with-message';
+import { FormLabelWithMessage } from '@/components/intuitive-ui/(forms)/form-label-with-message';
 import { Button } from '@/components/ui/button';
 import {
   Card,

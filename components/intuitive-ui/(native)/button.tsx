@@ -8,7 +8,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { Accent, Orientation, Shadow, Size, Variant } from './enums';
+import { Accent, Orientation, Shadow, Size, Variant } from './component-enums';
 
 const buttonVariants = cva(
   'inline-flex w-fit relative items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-md text-sm text-nowrap break-keep underline-offset-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 transition-colors duration-200 focus-visible:ring-offset-2 focus-visible:ring-accent',
