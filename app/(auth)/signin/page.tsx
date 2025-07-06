@@ -19,42 +19,21 @@ import {
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import useServerAction from '@/hooks/use-server-action';
+import { signin } from '@/models/user/user-actions';
 
-import { signin } from '@/app/_actions/users';
+import { SigninSchema } from '../auth-schemas';
 
-import { SigninSchema } from '../schemas';
-
-const SignUpPage = () => {
+const SignInPage = () => {
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
     mode: 'onChange',
   });
   const { control, register, handleSubmit } = form;
 
-  const [signinAction, signingIn] = useServerAction({
-    action: signin,
-    onError: {
-      action: ({ error }) => {
-        console.error(error);
-      },
-      message: 'Error signing in',
-      title: 'Error',
-    },
-    onSuccess: {
-      action: ({ response }) => {
-        console.info(response);
-      },
-      message: 'Signed in successfully',
-      title: 'Signed in',
-      redirect: '/home',
-    },
-  });
-
   return (
     <main className="flex h-screen w-full items-center justify-center">
       <Card className="min-w-96">
-        <form onSubmit={handleSubmit(signinAction, console.error)}>
+        <form onSubmit={handleSubmit(signin, console.error)}>
           <CardHeader>
             <CardTitle>Sign In</CardTitle>
             <CardDescription>
@@ -75,7 +54,6 @@ const SignUpPage = () => {
                         <Input
                           placeholder="marcelo@swing.com"
                           {...register(field.name)}
-                          disabled={signingIn}
                         />
                       </FormControl>
                     </FormItem>
@@ -92,7 +70,6 @@ const SignUpPage = () => {
                           type="password"
                           placeholder="marcelo@swing.com"
                           {...register(field.name)}
-                          disabled={signingIn}
                         />
                       </FormControl>
                     </FormItem>
@@ -110,4 +87,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

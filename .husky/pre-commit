@@ -25,6 +25,7 @@ echo "${BLUE}Current branch: ${BOLD}$current_branch${NC}"
 # If on dev or main, run build command
 if [ "$current_branch" = "dev" ] || [ "$current_branch" = "main" ]; then
   echo "${GREEN}On branch '$current_branch'. Running pnpm build...${NC}"
+  rm -rf .next
   pnpm build || { echo "${RED}Build failed${NC}"; exit 1; }
 else
   echo "${YELLOW}Not on dev/main branch (current: '$current_branch'); skipping build.${NC}"

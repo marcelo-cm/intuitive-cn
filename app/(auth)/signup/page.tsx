@@ -19,10 +19,8 @@ import {
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import useServerAction from '@/hooks/use-server-action';
-
-import { signup } from '@/app/_actions/users';
-import { CreateUserSchema } from '@/db/schema';
+import { signup } from '@/models/user/user-actions';
+import { CreateUserSchema } from '@/models/user/user-schemas';
 
 const SignUpPage = () => {
   const form = useForm<z.infer<typeof CreateUserSchema>>({
@@ -31,29 +29,10 @@ const SignUpPage = () => {
   });
   const { control, register, handleSubmit } = form;
 
-  const [signupAction, signingUp] = useServerAction({
-    action: signup,
-    onError: {
-      action: ({ error }) => {
-        console.error(error);
-      },
-      message: 'Error creating account',
-      title: 'Error',
-    },
-    onSuccess: {
-      action: ({ response }) => {
-        console.info(response);
-      },
-      message: 'Account created successfully',
-      title: 'Account created',
-      redirect: '/home',
-    },
-  });
-
   return (
     <main className="flex h-screen w-full items-center justify-center">
       <Card className="min-w-96">
-        <form onSubmit={handleSubmit(signupAction, console.error)}>
+        <form onSubmit={handleSubmit(signup, console.error)}>
           <CardHeader>
             <CardTitle>Sign Up</CardTitle>
             <CardDescription>Welcome!</CardDescription>
@@ -69,11 +48,7 @@ const SignUpPage = () => {
                       <FormItem>
                         <FormLabelWithMessage required />
                         <FormControl>
-                          <Input
-                            placeholder="John"
-                            {...register(field.name)}
-                            disabled={signingUp}
-                          />
+                          <Input placeholder="John" {...register(field.name)} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -88,7 +63,6 @@ const SignUpPage = () => {
                           <Input
                             placeholder="Appleseed"
                             {...register(field.name)}
-                            disabled={signingUp}
                           />
                         </FormControl>
                       </FormItem>
@@ -105,7 +79,6 @@ const SignUpPage = () => {
                         <Input
                           placeholder="marcelo@swing.com"
                           {...register(field.name)}
-                          disabled={signingUp}
                         />
                       </FormControl>
                     </FormItem>
@@ -122,7 +95,6 @@ const SignUpPage = () => {
                           type="password"
                           placeholder="********"
                           {...register(field.name)}
-                          disabled={signingUp}
                         />
                       </FormControl>
                     </FormItem>
