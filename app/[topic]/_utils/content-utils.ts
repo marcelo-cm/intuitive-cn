@@ -22,7 +22,8 @@ export interface IConfigDrivenContent {
 export function hasConfigDrivenContent(topic: string, slug: string): boolean {
   const configPath = path.join(
     process.cwd(),
-    'content',
+    'app',
+    '_content',
     topic,
     slug,
     'config.ts',
@@ -43,21 +44,34 @@ export async function loadConfigDrivenContent(
   slug: string,
 ): Promise<IConfigDrivenContent> {
   /*
-   * Use webpack-aware dynamic import to load the config file
-   * The webpackInclude comment tells the bundler to include all config files
+   * Use dynamic import to load the config file
+   * We construct the path relative to the current file location
    */
-  const { default: config } = (await import(
-    /* webpackInclude: /content\/.*\/config$/ */
-    `@/content/${topic}/${slug}/config`
-  )) as { default: IContentConfig };
+  try {
+    const { default: config } = (await import(
+      `@/app/_content/${topic}/${slug}/config`
+    )) as { default: IContentConfig };
 
+    return await _processConfigContent(config, topic, slug);
+  } catch (error) {
+    console.error(`Failed to load config for ${topic}/${slug}:`, error);
+    throw new Error(`Config file not found for ${topic}/${slug}`);
+  }
+}
+
+async function _processConfigContent(
+  config: IContentConfig,
+  topic: string,
+  slug: string,
+): Promise<IConfigDrivenContent> {
   /*
    * Compile each markdown snippet referenced in the config
    * We process them in parallel for better performance
    */
   const markdownDir = path.join(
     process.cwd(),
-    'content',
+    'app',
+    '_content',
     topic,
     slug,
     'markdown',

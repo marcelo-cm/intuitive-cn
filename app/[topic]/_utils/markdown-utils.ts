@@ -12,7 +12,7 @@ export interface IMarkdownContent {
   contentHtml: string;
 }
 
-const postsDirectory = path.join(process.cwd(), 'content');
+const postsDirectory = path.join(process.cwd(), 'app', '_content');
 
 /**
  * Get a single blog post by ID
