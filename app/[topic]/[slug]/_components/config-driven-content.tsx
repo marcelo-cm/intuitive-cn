@@ -3,8 +3,6 @@ import {
   Variant,
 } from '@/components/intuitive-ui/(native)/component-enums';
 
-import { cn } from '@/lib/utils';
-
 import { MarkdownRenderer } from '../../_components/markdown-renderer';
 import { ContentType } from '../../_constants/content-enums';
 import { IContentConfig } from '../../_constants/content-types';
