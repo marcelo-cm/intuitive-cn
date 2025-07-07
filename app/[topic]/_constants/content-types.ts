@@ -21,7 +21,7 @@ export interface IContentConfig {
 
 interface _IContentExample {
   type: 'example';
-  component: React.ReactNode;
+  component: React.FC | React.JSX.Element | React.ReactNode;
 }
 
 interface _IContentMarkdown {
