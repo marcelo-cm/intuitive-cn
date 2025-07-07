@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+---
+title: useCopyToClipboard
+visibility: public
+---
 
-import { toast } from 'sonner';
+# What & Why?
+This `useCopyToClipboard` hook encapsulates all the logic required to copy text to the clipboard, while managing feedback state (`isCopied` and `error`) and displaying consistent toast notifications. The main benefit of this hook is the reduction of boilerplate and consistency of UX. 
 
-/**
- * A hook to copy text to the clipboard. When the text is copied, the state is set to true for the timeout period.
- * If the text is copied again before the timeout, the timeout is reset.
- *
- * @param text - The text to copy to the clipboard.
- * @param timeout - The timeout in milliseconds to reset the copied state.
- * @param successMessage - The message to display when the text is copied.
- * @param errorMessage - The message to display when the text fails to copy.
- */
+By storing `isCopied` in state, the hook enables components to react to the copied status—such as toggling button labels, icons, or other visual affordances. Auto-clearing the copied state after a configurable timeout ensures the UI returns to its neutral state automatically, which avoids confusion and improves user experience.
+
+The hook also resets the timeout if the user triggers multiple copy actions in quick succession, guaranteeing that feedback remains fresh and predictable.
+
+# Code
+```typescript
 export const useCopyToClipboard = (
   text: string,
   options: {
@@ -95,3 +96,4 @@ export const useCopyToClipboard = (
     reset,
   };
 };
+```

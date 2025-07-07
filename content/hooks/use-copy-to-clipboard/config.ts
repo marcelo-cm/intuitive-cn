@@ -1,3 +1,4 @@
+import { ContentType } from '@/app/[topic]/_constants/content-enums';
 import { IContentConfig } from '@/app/[topic]/_constants/content-types';
 
 import BasicExample from './examples/basic-example';
@@ -6,16 +7,21 @@ const config: IContentConfig = {
   title: 'useCopyToClipboard',
   content: [
     {
-      type: 'markdown',
-      id: '1',
+      type: ContentType.MARKDOWN,
+      id: 'explanation',
     },
     {
-      type: 'example',
+      type: ContentType.MARKDOWN,
+      id: 'basic-example',
+      className: 'mb-0',
+    },
+    {
+      type: ContentType.COMPONENT,
       component: BasicExample,
     },
     {
-      type: 'markdown',
-      id: '2',
+      type: ContentType.MARKDOWN,
+      id: 'further-reading',
     },
   ],
 };

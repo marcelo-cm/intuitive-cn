@@ -40,7 +40,7 @@ export function MarkdownRenderer({
   className,
 }: IMarkdownRendererProps) {
   return (
-    <div className="relative">
+    <div className={cn('relative', className)}>
       <div
         className={cn(
           '[&_h1]:text-muted-foreground [&_h1]:mb-4 [&_h1]:font-mono [&_h1]:text-sm [&_h1]:leading-tight [&_h1]:font-medium [&_h1]:uppercase',
@@ -56,12 +56,11 @@ export function MarkdownRenderer({
           '[&_a]:text-accent-foreground [&_a]:whitespace-nowrap [&_a]:after:decoration-transparent [&_a]:after:content-["_↗"] [&_a]:hover:underline',
           '[&_img]:my-4 [&_img]:rounded-lg',
           '[&_table]:mb-4 [&_table]:w-full [&_table]:border-collapse',
-          '[&_th]:border [&_th]:border-gray-300 [&_th]:bg-gray-100 [&_th]:px-4 [&_th]:py-2',
-          '[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2',
-          '[&_hr]:my-8 [&_hr]:border-t [&_hr]:border-gray-300',
+          '[&_th]:border-border [&_th]:bg-muted [&_th]:border [&_th]:px-4 [&_th]:py-2',
+          '[&_td]:border-border [&_td]:border [&_td]:px-4 [&_td]:py-2',
+          '[&_hr]:border-border [&_hr]:my-8 [&_hr]:border-t',
           '[&_strong]:font-semibold',
-          '[&_pre]:text-muted-foreground [&_pre]:bg-muted [&_pre]:border-muted-foreground/20 [&_pre]:rounded [&_pre]:border [&_pre]:px-4 [&_pre]:font-mono [&_pre]:text-sm [&_pre]:[&>code]:border-none',
-          className,
+          '[&_pre]:text-muted-foreground [&_pre]:bg-muted [&_pre]:border-border [&_pre]:rounded [&_pre]:border [&_pre]:px-4 [&_pre]:font-mono [&_pre]:text-sm [&_pre]:[&>code]:border-none',
         )}
         dangerouslySetInnerHTML={{ __html: content }}
       />

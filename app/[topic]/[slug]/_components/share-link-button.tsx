@@ -1,6 +1,6 @@
 'use client';
 
-import { LinkIcon } from 'lucide-react';
+import { CheckIcon, LinkIcon } from 'lucide-react';
 
 import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
@@ -19,7 +19,7 @@ const createShareableBlogLink = (pathname: string) => {
   return `${process.env.NEXT_PUBLIC_APP_URL}${pathname}`;
 };
 
-const ShareBlogButton = ({ className, ...props }: ButtonProps) => {
+const ShareLinkButton = ({ className, ...props }: ButtonProps) => {
   const pathname = usePathname();
   const { isCopied, handleCopy } = useCopyToClipboard(
     createShareableBlogLink(pathname),
@@ -38,12 +38,11 @@ const ShareBlogButton = ({ className, ...props }: ButtonProps) => {
           toast.error('Failed to copy link');
         }
       }}
-      disabled={isCopied}
       {...props}
     >
-      <LinkIcon className="stroke-muted-foreground group-hover:stroke-accent-foreground" />
+      {isCopied ? <CheckIcon /> : <LinkIcon />}
     </Button>
   );
 };
 
-export default ShareBlogButton;
+export default ShareLinkButton;

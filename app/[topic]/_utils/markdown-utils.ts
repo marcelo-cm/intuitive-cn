@@ -4,15 +4,12 @@ import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-import { BlogVisibility } from '../[slug]/_constants/enums';
-
 export interface IMarkdownContent {
   topic: string;
   slug: string;
   title: string;
   description?: string;
   contentHtml: string;
-  visibility?: BlogVisibility;
 }
 
 const postsDirectory = path.join(process.cwd(), 'content');

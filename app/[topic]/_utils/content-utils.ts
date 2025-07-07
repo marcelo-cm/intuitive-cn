@@ -4,7 +4,12 @@ import path from 'path';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-import { IContentConfig } from '@/app/[topic]/_constants/content-types';
+import {
+  IContentConfig,
+  IContentMarkdown,
+} from '@/app/[topic]/_constants/content-types';
+
+import { ContentType } from '../_constants/content-enums';
 
 export interface IConfigDrivenContent {
   config: IContentConfig;
@@ -62,8 +67,8 @@ export async function loadConfigDrivenContent(
   await Promise.all(
     config.content
       .filter(
-        (block): block is { type: 'markdown'; id: string } =>
-          block.type === 'markdown',
+        (block): block is IContentMarkdown =>
+          block.type === ContentType.MARKDOWN,
       )
       .map(async ({ id }) => {
         const rawMarkdown = fs.readFileSync(

@@ -1,5 +1,9 @@
 import { ElementType } from 'react';
 
+import { ClassValue } from 'clsx';
+
+import { ContentType } from './content-enums';
+
 export interface IContentItem {
   Icon: ElementType;
   title: string;
@@ -16,15 +20,18 @@ export interface IContentGroup {
 export interface IContentConfig {
   title: string;
   description?: string;
-  content: (_IContentMarkdown | _IContentExample)[];
+  content: (IContentMarkdown | IContentExample)[];
 }
 
-interface _IContentExample {
-  type: 'example';
+export interface IContentExample {
+  type: ContentType.COMPONENT;
+  title?: string;
+  description?: string;
   component: React.FC | React.JSX.Element | React.ReactNode;
 }
 
-interface _IContentMarkdown {
-  type: 'markdown';
+export interface IContentMarkdown {
+  type: ContentType.MARKDOWN;
   id: string;
+  className?: ClassValue;
 }
