@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: IBlogPostPageProps) {
   }
 
   return (
-    <article className="mx-auto flex w-full max-w-2xl grow flex-col gap-12 px-4 pt-8 pb-12 md:py-12">
+    <article className="mx-auto flex w-full max-w-4xl grow flex-col gap-12 px-4 pt-8 pb-12 md:py-12">
       <div className="flex flex-row items-start justify-between">
         <div>
           <p>{post.title}</p>

@@ -1,5 +1,3 @@
-import { ElementType } from 'react';
-
 import {
   Book,
   BookOpen,
@@ -20,20 +18,9 @@ import {
   Zap,
 } from 'lucide-react';
 
-interface ITableOfContentsItem {
-  Icon: ElementType;
-  title: string;
-  description?: string;
-  href: string;
-}
+import { IContentGroup } from './content-types';
 
-interface ITableOfContentsGroup {
-  Icon: ElementType;
-  title: string;
-  items: ITableOfContentsItem[];
-}
-
-export const TABLE_OF_CONTENTS_ITEMS: ITableOfContentsGroup[] = [
+export const TABLE_OF_CONTENTS_ITEMS: IContentGroup[] = [
   {
     title: 'Docs',
     Icon: Book,
@@ -65,8 +52,8 @@ export const TABLE_OF_CONTENTS_ITEMS: ITableOfContentsGroup[] = [
     Icon: Zap,
     items: [
       {
-        title: 'useCopyText',
-        href: '/hooks/use-copy-text',
+        title: 'useCopyToClipboard',
+        href: '/hooks/use-copy-to-clipboard',
         Icon: Copy,
       },
       {

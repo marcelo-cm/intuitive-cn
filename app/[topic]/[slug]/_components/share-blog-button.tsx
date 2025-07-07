@@ -11,7 +11,7 @@ import {
   Variant,
 } from '@/components/intuitive-ui/(native)/component-enums';
 
-import { useCopyText } from '@/hooks/use-copy-text';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 
 import { cn } from '@/lib/utils';
 
@@ -21,7 +21,7 @@ const createShareableBlogLink = (pathname: string) => {
 
 const ShareBlogButton = ({ className, ...props }: ButtonProps) => {
   const pathname = usePathname();
-  const { isCopied, handleCopy } = useCopyText(
+  const { isCopied, handleCopy } = useCopyToClipboard(
     createShareableBlogLink(pathname),
   );
   return (
