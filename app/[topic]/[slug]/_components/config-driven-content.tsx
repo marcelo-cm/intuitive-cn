@@ -7,7 +7,6 @@ import { MarkdownRenderer } from '../../_components/markdown-renderer';
 import { ContentType } from '../../_constants/content-enums';
 import { IContentConfig } from '../../_constants/content-types';
 import ShareLinkButton from './share-link-button';
-import ViewCounter from './view-counter';
 
 interface IConfigDrivenContentProps {
   topic: string;
@@ -20,8 +19,6 @@ interface IConfigDrivenContentProps {
  * Config-driven article component with mixed markdown and React components
  */
 export const ConfigDrivenContent = ({
-  topic,
-  slug,
   config,
   compiledMarkdown,
 }: IConfigDrivenContentProps) => {
@@ -30,7 +27,7 @@ export const ConfigDrivenContent = ({
       <div className="flex flex-row items-start justify-between">
         <div>
           <p>{config.title}</p>
-          <ViewCounter topic={topic} slug={slug} />
+          {/* <ViewCounter topic={topic} slug={slug} /> */}
         </div>
         <ShareLinkButton className="hidden sm:flex" />
       </div>

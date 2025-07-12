@@ -2,6 +2,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { toast } from 'sonner';
 
+interface IUseCopyToClipboardOptions {
+  timeout?: number;
+  successMessage?: string;
+  errorMessage?: string;
+  persistError?: boolean;
+}
+
 /**
  * A hook to copy text to the clipboard. When the text is copied, the state is set to true for the timeout period.
  * If the text is copied again before the timeout, the timeout is reset.
@@ -13,12 +20,7 @@ import { toast } from 'sonner';
  */
 export const useCopyToClipboard = (
   text: string,
-  options: {
-    timeout?: number;
-    successMessage?: string;
-    errorMessage?: string;
-    persistError?: boolean;
-  } = {},
+  options: IUseCopyToClipboardOptions = {},
 ) => {
   const {
     timeout = 2000,
@@ -47,7 +49,9 @@ export const useCopyToClipboard = (
       toast.success(successMessage ?? 'Copied to clipboard');
       setIsCopied(true);
 
-      // Set timeout to reset copied state
+      /**
+       * Set timeout to reset copied state
+       */
       timeoutRef.current = setTimeout(() => {
         setIsCopied(false);
       }, timeout);

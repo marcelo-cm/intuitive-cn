@@ -53,11 +53,11 @@ const buttonVariants = cva(
       },
       accent: {
         [Accent.DESTRUCTIVE]:
-          'hover:bg-destructive/80 active:bg-destructive/90 focus-visible:ring-destructive hover:text-destructive-foreground',
+          'hover:bg-destructive/80 active:bg-destructive/90 focus-visible:ring-destructive hover:text-destructive-foreground hover:border-destructive-foreground/10',
         [Accent.SUCCESS]:
-          'hover:bg-success/80 active:bg-success/90 focus-visible:ring-success hover:text-success-foreground',
+          'hover:bg-success/80 active:bg-success/90 focus-visible:ring-success hover:text-success-foreground hover:border-success-foreground/10',
         [Accent.WARNING]:
-          'hover:bg-warning/80 active:bg-warning/90 focus-visible:ring-warning hover:text-warning-foreground',
+          'hover:bg-warning/80 active:bg-warning/90 focus-visible:ring-warning hover:text-warning-foreground hover:border-warning-foreground/10',
       },
       icon: { true: 'p-0' },
       rounded: { true: 'rounded-full' },

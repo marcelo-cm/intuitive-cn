@@ -3,7 +3,6 @@
 import { CheckIcon, LinkIcon } from 'lucide-react';
 
 import { usePathname } from 'next/navigation';
-import { toast } from 'sonner';
 
 import { Button, ButtonProps } from '@/components/intuitive-ui/(native)/button';
 import {
@@ -30,14 +29,7 @@ const ShareLinkButton = ({ className, ...props }: ButtonProps) => {
       variant={Variant.GHOST}
       size={Size.XXS}
       icon
-      onClick={() => {
-        try {
-          handleCopy();
-          toast.success('Link copied to clipboard');
-        } catch {
-          toast.error('Failed to copy link');
-        }
-      }}
+      onClick={handleCopy}
       {...props}
     >
       {isCopied ? <CheckIcon /> : <LinkIcon />}

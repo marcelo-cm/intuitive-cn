@@ -11,7 +11,7 @@ By storing `isCopied` in state, the hook enables components to react to the copi
 The hook also resets the timeout if the user triggers multiple copy actions in quick succession, guaranteeing that feedback remains fresh and predictable.
 
 # Code
-```tsx
+```typescript
 export const useCopyToClipboard = (
   text: string,
   options: {
@@ -96,28 +96,4 @@ export const useCopyToClipboard = (
     reset,
   };
 };
-```
-
-# Usage
-
-```tsx
-const UseCopyToClipboardExample: React.FC = () => {
-  const { handleCopy, isCopied, error } = useCopyToClipboard('Hello, world!');
-
-  return (
-    <div className="flex flex-col gap-4">
-      <Container>
-        <Button
-          onClick={handleCopy}
-          variant={isCopied ? Variant.SUCCESS : Variant.PRIMARY}
-          TrailingIcon={isCopied ? CheckIcon : CopyIcon}
-        >
-          {isCopied ? 'Copied!' : 'Copy  to clipboard'}
-        </Button>
-      </Container>
-    </div>
-  );
-};
-
-export default BasicExample;
 ```

@@ -6,18 +6,18 @@ import { prettifyText } from '@/lib/utils/text-formatting-utils';
 interface IFormLabelWithMessageProps {
   className?: string;
   required?: boolean;
-  label?: string;
+  children?: React.ReactNode;
   style?: 'optional-text' | 'required-text' | 'required-icon';
 }
 
 export const FormLabelWithMessage = ({
   className,
   required = false,
-  label,
+  children,
   style = 'optional-text',
 }: IFormLabelWithMessageProps) => {
   const { error, name: fieldName } = useFormField();
-  const labelText = label ?? prettifyText(fieldName);
+  const labelText = children ?? prettifyText(fieldName);
 
   return (
     <div
@@ -51,7 +51,7 @@ const _FormStatus = ({ required, style, hasError }: _IFormStatusProps) => {
   // No error message, show based on style and required state
   if (style === 'optional-text' && !required) {
     return (
-      <span className="text-muted-foreground text-xs leading-none font-medium">
+      <span className="text-muted-foreground-foreground text-xs leading-none font-medium">
         Optional
       </span>
     );
@@ -59,7 +59,7 @@ const _FormStatus = ({ required, style, hasError }: _IFormStatusProps) => {
 
   if (style === 'required-text' && required) {
     return (
-      <span className="text-muted-foreground text-xs leading-none font-medium">
+      <span className="text-muted-foreground-foreground text-xs leading-none font-medium">
         Required
       </span>
     );
@@ -67,7 +67,7 @@ const _FormStatus = ({ required, style, hasError }: _IFormStatusProps) => {
 
   if (style === 'required-icon' && required) {
     return (
-      <span className="text-destructive text-xs leading-none font-medium">
+      <span className="text-destructive-foreground text-xs leading-none font-medium">
         *
       </span>
     );
