@@ -37,8 +37,8 @@ const SignInPage = () => {
           <CardHeader>
             <CardTitle>Sign In</CardTitle>
             <CardDescription>
-              Welcome back to Swing! We&apos;re excited to make your life
-              easier.
+              Welcome back to The Repository! We&apos;re excited to make your
+              life easier.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -52,7 +52,7 @@ const SignInPage = () => {
                       <FormLabelWithMessage required />
                       <FormControl>
                         <Input
-                          placeholder="marcelo@swing.com"
+                          placeholder="marcelo@therepository.dev"
                           {...register(field.name)}
                         />
                       </FormControl>
@@ -68,7 +68,7 @@ const SignInPage = () => {
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="marcelo@swing.com"
+                          placeholder="marcelo@therepository.dev"
                           {...register(field.name)}
                         />
                       </FormControl>

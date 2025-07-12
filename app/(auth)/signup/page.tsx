@@ -77,7 +77,7 @@ const SignUpPage = () => {
                       <FormLabelWithMessage required />
                       <FormControl>
                         <Input
-                          placeholder="marcelo@swing.com"
+                          placeholder="marcelo@therepository.dev"
                           {...register(field.name)}
                         />
                       </FormControl>
