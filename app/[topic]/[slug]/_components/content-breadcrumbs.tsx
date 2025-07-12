@@ -14,7 +14,8 @@ import { capitalizeText } from '@/lib/utils/text-formatting-utils';
 
 const ContentBreadcrumbs = () => {
   const pathname = usePathname();
-  const topic = pathname.split('/')[1];
+  const topic = pathname?.split('/')[1] ?? '';
+
   return (
     <Breadcrumb className="flex flex-row items-center gap-2">
       <BreadcrumbItem>
