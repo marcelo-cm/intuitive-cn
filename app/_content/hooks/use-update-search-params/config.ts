@@ -5,8 +5,7 @@ import BasicExample from './examples/basic-example';
 
 const config: IContentConfig = {
   title: 'useUpdateSearchParams',
-  description:
-    'Standardized practices to update search parameters. Wrapper over the native `useSearchParams` hook.',
+  description: 'Standardized practices to update search parameters.',
   content: [
     {
       type: ContentType.MARKDOWN,

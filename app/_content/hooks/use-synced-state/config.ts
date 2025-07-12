@@ -6,7 +6,7 @@ import BasicExample from './examples/basic-example';
 const config: IContentConfig = {
   title: 'useSyncedState',
   description:
-    'Just like a useState, but if the initial state is changed, the state will be updated to the new value.',
+    'useState that updates to the new value when the initial state changes.',
   content: [
     {
       type: ContentType.MARKDOWN,
