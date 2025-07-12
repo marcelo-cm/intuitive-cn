@@ -6,6 +6,7 @@ import {
 import { MarkdownRenderer } from '../../_components/markdown-renderer';
 import { ContentType } from '../../_constants/content-enums';
 import { IContentConfig } from '../../_constants/content-types';
+import ContentBreadcrumbs from './content-breadcrumbs';
 import ShareLinkButton from './share-link-button';
 
 interface IConfigDrivenContentProps {
@@ -24,12 +25,18 @@ export const ConfigDrivenContent = ({
 }: IConfigDrivenContentProps) => {
   return (
     <article className="mx-auto flex w-full max-w-4xl grow flex-col space-y-8 px-4 pt-8 pb-12 md:py-12">
-      <div className="flex flex-row items-start justify-between">
-        <div>
-          <p>{config.title}</p>
-          {/* <ViewCounter topic={topic} slug={slug} /> */}
+      <div>
+        <ContentBreadcrumbs />
+        <div className="flex flex-row items-start justify-between">
+          <div>
+            <p>{config.title}</p>
+            <p className="text-muted-foreground text-sm">
+              {config.description}
+            </p>
+            {/* <ViewCounter topic={topic} slug={slug} /> */}
+          </div>
+          <ShareLinkButton className="hidden sm:flex" />
         </div>
-        <ShareLinkButton className="hidden sm:flex" />
       </div>
 
       {config.content.map((block, i) => {

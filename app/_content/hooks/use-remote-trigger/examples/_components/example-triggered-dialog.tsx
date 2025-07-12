@@ -15,7 +15,7 @@ import {
   useRemoteTrigger,
 } from '@/hooks/use-remote-trigger';
 
-const ExampleRemoteTriggerDialog = ({
+const ExampleTriggeredDialog = ({
   children,
   open,
   onOpenChange,
@@ -49,4 +49,4 @@ const ExampleRemoteTriggerDialog = ({
   );
 };
 
-export default ExampleRemoteTriggerDialog;
+export default ExampleTriggeredDialog;

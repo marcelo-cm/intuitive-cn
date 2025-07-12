@@ -1,14 +1,8 @@
-'use client';
+# Example & Usage
 
-import { useState } from 'react';
+Parent container just uses a `useState` and passes it through to the inner container:
 
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-
-import Container from '@/app/[topic]/[slug]/_components/container';
-
-import ExampleButton from './_components/example-button';
-
+```tsx
 const BasicExample = () => {
   const [count, setCount] = useState(0);
 
@@ -40,5 +34,18 @@ const BasicExample = () => {
     </Container>
   );
 };
+```
 
-export default BasicExample;
+The inner container uses `useSyncState` as described above, so when we choose a different starting point it'll update the count for the bottom, but the changes in the button do not impact the parent state.
+
+```tsx
+const ExampleButton = ({ initialCount }: ExampleButtonProps) => {
+  const [count, setCount] = useSyncedState(initialCount);
+
+  return (
+    <Container className="bg-background w-full">
+      <Button onClick={() => setCount(count + 1)}>{count}</Button>
+    </Container>
+  );
+};
+```

@@ -23,6 +23,10 @@ const config: IContentConfig = {
     },
     {
       type: ContentType.MARKDOWN,
+      id: 'usage',
+    },
+    {
+      type: ContentType.MARKDOWN,
       id: 'further-reading',
     },
   ],

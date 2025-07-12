@@ -6,7 +6,7 @@ interface UseRemoteTriggerProps {
 }
 
 export interface RemoteTriggerProps extends UseRemoteTriggerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 /**

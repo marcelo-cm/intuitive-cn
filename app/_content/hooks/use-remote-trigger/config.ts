@@ -12,9 +12,19 @@ const config: IContentConfig = {
       type: ContentType.MARKDOWN,
       id: 'explanation',
     },
+
+    {
+      type: ContentType.MARKDOWN,
+      id: 'example',
+      className: 'mb-0',
+    },
     {
       type: ContentType.COMPONENT,
       component: BasicExample,
+    },
+    {
+      type: ContentType.MARKDOWN,
+      id: 'usage',
     },
   ],
 };

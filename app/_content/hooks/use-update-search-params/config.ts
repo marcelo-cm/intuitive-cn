@@ -20,6 +20,10 @@ const config: IContentConfig = {
       type: ContentType.COMPONENT,
       component: BasicExample,
     },
+    {
+      type: ContentType.MARKDOWN,
+      id: 'usage',
+    },
   ],
 };
 
