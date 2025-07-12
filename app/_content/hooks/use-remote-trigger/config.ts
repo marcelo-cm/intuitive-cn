@@ -4,18 +4,13 @@ import { IContentConfig } from '@/app/[topic]/_constants/content-types';
 import BasicExample from './examples/basic-example';
 
 const config: IContentConfig = {
-  title: 'useUpdateSearchParams',
+  title: 'useRemoteTrigger',
   description:
-    'Standardized practices to update search parameters. Wrapper over the native `useSearchParams` hook.',
+    'Control dialogs, sheets, and other components triggered by open states or on the click of a trigger.',
   content: [
     {
       type: ContentType.MARKDOWN,
       id: 'explanation',
-    },
-    {
-      type: ContentType.MARKDOWN,
-      id: 'basic-example',
-      className: 'mb-0',
     },
     {
       type: ContentType.COMPONENT,

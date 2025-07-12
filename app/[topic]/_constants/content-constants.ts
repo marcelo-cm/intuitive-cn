@@ -1,22 +1,19 @@
 import {
   Book,
   BookOpen,
-  Copy,
   Cuboid,
   Database,
   FileWarning,
   Folder,
   LayoutGrid,
-  Loader,
   MousePointer,
   MousePointerClick,
-  Search,
   Server,
-  Smartphone,
   Table,
   TextIcon,
-  Zap,
 } from 'lucide-react';
+
+import HOOK_CONTENT from '@/app/_content/hooks/hook-contents';
 
 import { IContentGroup } from './content-types';
 
@@ -47,32 +44,7 @@ export const TABLE_OF_CONTENTS_ITEMS: IContentGroup[] = [
       },
     ],
   },
-  {
-    title: 'Hooks',
-    Icon: Zap,
-    items: [
-      {
-        title: 'useCopyToClipboard',
-        href: '/hooks/use-copy-to-clipboard',
-        Icon: Copy,
-      },
-      {
-        title: 'useMobile',
-        href: '/hooks/use-mobile',
-        Icon: Smartphone,
-      },
-      {
-        title: 'useUpdateSearchParams',
-        href: '/hooks/use-update-search-params',
-        Icon: Search,
-      },
-      {
-        title: 'useGlobalLoading',
-        href: '/hooks/use-global-loading',
-        Icon: Loader,
-      },
-    ],
-  },
+  HOOK_CONTENT,
   {
     title: 'Components',
     Icon: LayoutGrid,

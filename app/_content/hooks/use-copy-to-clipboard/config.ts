@@ -5,6 +5,8 @@ import BasicExample from './examples/basic-example';
 
 const config: IContentConfig = {
   title: 'useCopyToClipboard',
+  description:
+    'Copy text to the clipboard with feedback state and toast notifications.',
   content: [
     {
       type: ContentType.MARKDOWN,

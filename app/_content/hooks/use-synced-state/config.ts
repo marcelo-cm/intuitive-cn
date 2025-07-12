@@ -4,18 +4,13 @@ import { IContentConfig } from '@/app/[topic]/_constants/content-types';
 import BasicExample from './examples/basic-example';
 
 const config: IContentConfig = {
-  title: 'useUpdateSearchParams',
+  title: 'useSyncedState',
   description:
-    'Standardized practices to update search parameters. Wrapper over the native `useSearchParams` hook.',
+    'Just like a useState, but if the initial state is changed, the state will be updated to the new value.',
   content: [
     {
       type: ContentType.MARKDOWN,
       id: 'explanation',
-    },
-    {
-      type: ContentType.MARKDOWN,
-      id: 'basic-example',
-      className: 'mb-0',
     },
     {
       type: ContentType.COMPONENT,

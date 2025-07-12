@@ -10,6 +10,9 @@ interface UpdateOptions {
   shallow?: boolean;
 }
 
+/**
+ * Hook to update the search params of the current URL.
+ */
 export const useUpdateSearchParams = () => {
   const router = useRouter();
   const pathname = usePathname();
