@@ -13,7 +13,7 @@ import {
   TextIcon,
 } from 'lucide-react';
 
-import HOOK_CONTENT from '@/app/_content/hooks/hook-contents';
+import HOOK_CONTENT from '@/app/_content/hooks/content';
 
 import { IContentGroup } from './content-types';
 

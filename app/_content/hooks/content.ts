@@ -36,7 +36,7 @@ function createHookItem(config: IContentConfig, Icon: ElementType) {
   };
 }
 
-const HOOK_CONTENT: IContentGroup = {
+const CONTENT: IContentGroup = {
   title: 'Hooks',
   Icon: Zap,
   items: [
@@ -47,4 +47,4 @@ const HOOK_CONTENT: IContentGroup = {
   ],
 };
 
-export default HOOK_CONTENT;
+export default CONTENT;
