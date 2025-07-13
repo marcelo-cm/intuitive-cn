@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { Title } from '@/components/intuitive-ui/(native)/(typography)/title';
+import { TextLevel } from '@/components/intuitive-ui/(native)/(typography)/typography-enums';
 
 import TableOfContentsSection from '@/app/_components/table-of-contents-section';
 
@@ -46,7 +48,9 @@ export default async function TopicPage({ params }: ITopicPageProps) {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl grow flex-col gap-12 px-4 pt-8 pb-12 md:py-12">
-      <Title>the repository</Title>
+      <Link href="/">
+        <Title level={TextLevel.H1}>the repository</Title>
+      </Link>
       <TableOfContentsSection group={topicContent} />
     </div>
   );
