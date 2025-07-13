@@ -7,4 +7,4 @@ drizzle
 .prettierrc
 pnpm-lock.yaml
 ./next*
-*.md*
+# *.md*

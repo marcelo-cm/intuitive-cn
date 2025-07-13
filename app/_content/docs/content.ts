@@ -20,7 +20,7 @@ const CONTENT: IContentGroup = {
     },
     {
       title: 'Working with Drizzle ORM & Supabase, and Why',
-      href: '/docs/drizzle-orm',
+      href: '/docs/drizzle-orm-supabase',
       Icon: Database,
     },
     // {

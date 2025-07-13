@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo && tsc && prettier --check .",
+    "dev:fresh": "rm -rf .next/ && next dev --turbo && tsc && prettier --check .",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --check . && tsc",
