@@ -111,9 +111,7 @@ Code should be predictable. It should be so predictable that someone should read
 My rule of thumb: if skipping a rule requires a written justification, it should be an error. Everything else can stay warn until the team is ready to tighten the belt.
 
 # True Story
-Not long ago at [Gumloop](https://gumloop.com/) we noticed in our staging build that updating a node’s value simply didn’t stick. After a painful search we found the culprit: a missing variable in a useEffect dependency array. React recycled a stale closure, the UI never re-rendered, and a critical workflow stalled in production. Had we flipped on react-hooks/exhaustive-deps: "warn" or "error" earlier, the linter would’ve screamed at the empty dependency list and the bug would have been squashed in seconds.
-
-Below is a fleshed-out draft that layers your new details into the original piece. I kept the same conversational vibe and dropped in clear headings so you can shuffle or trim as you like.
+Not long ago at [Gumloop](https://gumloop.com/) we noticed in our staging build that updating a node’s value simply didn’t update it's internal data. After a painful search we found the culprit: a missing variable in a useCallback dependency array. Had we flipped on react-hooks/exhaustive-deps: "warn" or "error" earlier, the linter would’ve screamed at the empty dependency list and the bug would have been squashed in seconds.
 
 # Tailwind & Import Sorting—Predictable Styling, Predictable Imports
 
@@ -121,7 +119,6 @@ Below is a fleshed-out draft that layers your new details into the original piec
 * **`@trivago/prettier-plugin-sort-imports`** alphabetizes and groups imports for easy scanning.
 
 > **Gotcha:** If your codebase hides a circular-dependency, auto-sorting can expose it (or break the build). Fix the cycle or temporarily disable the plugin on that file—but please fix the cycle.
-
 
 ## Wrap-Up
 
