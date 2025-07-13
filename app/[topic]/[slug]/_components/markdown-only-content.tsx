@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import {
   Size,
   Variant,
@@ -7,6 +5,7 @@ import {
 
 import { MarkdownRenderer } from '../../_components/markdown-renderer';
 import { IMarkdownContent } from '../../_utils/markdown-utils';
+import ContentBreadcrumbs from './content-breadcrumbs';
 import ShareLinkButton from './share-link-button';
 
 interface IMarkdownOnlyContentProps {
@@ -20,9 +19,7 @@ export const MarkdownOnlyContent = ({ post }: IMarkdownOnlyContentProps) => {
   return (
     <article className="mx-auto flex w-full max-w-4xl grow flex-col gap-12 px-4 pt-8 pb-12 md:py-12">
       <div>
-        <Link href="/" className="text-muted-foreground text-sm">
-          Home
-        </Link>
+        <ContentBreadcrumbs />
         <div className="flex flex-row items-start justify-between">
           <div>
             <p>{post.title}</p>

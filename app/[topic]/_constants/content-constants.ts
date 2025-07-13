@@ -1,16 +1,12 @@
 import {
   Book,
   BookOpen,
-  Cuboid,
   Database,
   FileWarning,
   Folder,
   LayoutGrid,
   MousePointer,
-  MousePointerClick,
-  Server,
   Table,
-  TextIcon,
 } from 'lucide-react';
 
 import HOOK_CONTENT from '@/app/_content/hooks/content';
@@ -46,22 +42,6 @@ export const TABLE_OF_CONTENTS_ITEMS: IContentGroup[] = [
   },
   HOOK_CONTENT,
   {
-    title: 'Components',
-    Icon: LayoutGrid,
-    items: [
-      {
-        title: 'Typography',
-        Icon: TextIcon,
-        href: '/components/typography',
-      },
-      {
-        title: 'Button',
-        Icon: MousePointerClick,
-        href: '/components/button',
-      },
-    ],
-  },
-  {
     title: 'Patterns',
     Icon: LayoutGrid,
     items: [
@@ -81,17 +61,6 @@ export const TABLE_OF_CONTENTS_ITEMS: IContentGroup[] = [
           'Why you should use one or the other, and how to do each well.',
         href: '/patterns/data-fetching',
         Icon: Database,
-      },
-    ],
-  },
-  {
-    title: 'Helpers',
-    Icon: Cuboid,
-    items: [
-      {
-        title: 'API Fetching Client',
-        href: '/helpers/api-fetching-client',
-        Icon: Server,
       },
     ],
   },
