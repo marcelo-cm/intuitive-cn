@@ -4,13 +4,15 @@ visibility: public
 ---
 
 # What & Why?
-This `useCopyToClipboard` hook encapsulates all the logic required to copy text to the clipboard, while managing feedback state (`isCopied` and `error`) and displaying consistent toast notifications. The main benefit of this hook is the reduction of boilerplate and consistency of UX. 
+
+This `useCopyToClipboard` hook encapsulates all the logic required to copy text to the clipboard, while managing feedback state (`isCopied` and `error`) and displaying consistent toast notifications. The main benefit of this hook is the reduction of boilerplate and consistency of UX.
 
 By storing `isCopied` in state, the hook enables components to react to the copied status—such as toggling button labels, icons, or other visual affordances. Auto-clearing the copied state after a configurable timeout ensures the UI returns to its neutral state automatically, which avoids confusion and improves user experience.
 
 The hook also resets the timeout if the user triggers multiple copy actions in quick succession, guaranteeing that feedback remains fresh and predictable.
 
 # Code
+
 ```tsx
 export const useCopyToClipboard = (
   text: string,

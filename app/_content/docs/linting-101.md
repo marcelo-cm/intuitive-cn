@@ -17,6 +17,7 @@ In other words, it keeps your code pretty, catches your errors before they're co
 If you just want a solid, opinionated baseline, copy these three files into the root of your repo:
 
 `.prettierrc`
+
 ```json
 {
   "extends": [
@@ -24,7 +25,7 @@ If you just want a solid, opinionated baseline, copy these three files into the 
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "plugins": ["react", "react-hooks", "unused-imports"],
   "rules": {
@@ -38,14 +39,15 @@ If you just want a solid, opinionated baseline, copy these three files into the 
         "vars": "all",
         "varsIgnorePattern": "^_",
         "args": "after-used",
-        "argsIgnorePattern": "^_",
-      },
-    ],
-  },
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
 }
 ```
 
 `.eslintrc`
+
 ```json
 {
   "plugins": [
@@ -70,6 +72,7 @@ If you just want a solid, opinionated baseline, copy these three files into the 
 ```
 
 `.prettierignore`
+
 ```txt
 node_modules
 dist
@@ -84,46 +87,51 @@ pnpm-lock.yaml
 ```
 
 Please make sure you install the following packages:
+
 1. [prettier](https://www.npmjs.com/package/prettier)
 2. [eslint](https://www.npmjs.com/package/eslint)
-1. [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports/v/2.0.0)
-2. [prettier-plugin-tailwindcss](https://www.npmjs.com/package/prettier-plugin-tailwindcss/v/0.0.0-insiders.d539a72)
-3. [unused-imports](https://www.npmjs.com/package/eslint-plugin-unused-imports)
-4. [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
-5. [eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
+3. [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports/v/2.0.0)
+4. [prettier-plugin-tailwindcss](https://www.npmjs.com/package/prettier-plugin-tailwindcss/v/0.0.0-insiders.d539a72)
+5. [unused-imports](https://www.npmjs.com/package/eslint-plugin-unused-imports)
+6. [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+7. [eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
 
 # Why It Rocks
 
 Code should be predictable. It should be so predictable that someone should read one file and open a similar file and know exactly how to navigate it. Tools like linting can make this automatic. Not only that, but it can have real performance benefits at scale.
 
 **react-hooks/exhaustive-deps**
-* Prevents stale closures and prod bugs (see **Gumloop** story)
-* For rare one-offs, leave a comment explaining why for `useEffects`. Almost never break for `useCallback` and `useMemo`
+
+- Prevents stale closures and prod bugs (see **Gumloop** story)
+- For rare one-offs, leave a comment explaining why for `useEffects`. Almost never break for `useCallback` and `useMemo`
 
 **unused-imports/no-unused-imports**
-* Enables tree-shaking; nothing unused sneaks into the bundle
-* Never break this rule—delete or refactor instead
+
+- Enables tree-shaking; nothing unused sneaks into the bundle
+- Never break this rule—delete or refactor instead
 
 **unused-imports/no-unused-vars**
-* Keeps files readable with zero dead code
-* Prefix deliberate throwaways with `_` so the rule stays happy
+
+- Keeps files readable with zero dead code
+- Prefix deliberate throwaways with `_` so the rule stays happy
 
 My rule of thumb: if skipping a rule requires a written justification, it should be an error. Everything else can stay warn until the team is ready to tighten the belt.
 
 # True Story
+
 Not long ago at [Gumloop](https://gumloop.com/) we noticed in our staging build that updating a node’s value simply didn’t update it's internal data. After a painful search we found the culprit: a missing variable in a useCallback dependency array. Had we flipped on react-hooks/exhaustive-deps: "warn" or "error" earlier, the linter would’ve screamed at the empty dependency list and the bug would have been squashed in seconds.
 
 # Tailwind & Import Sorting—Predictable Styling, Predictable Imports
 
-* **`prettier-plugin-tailwindcss`** reorders Tailwind classes so the *final* CSS is always correct and predictable.
-* **`@trivago/prettier-plugin-sort-imports`** alphabetizes and groups imports for easy scanning.
+- **`prettier-plugin-tailwindcss`** reorders Tailwind classes so the _final_ CSS is always correct and predictable.
+- **`@trivago/prettier-plugin-sort-imports`** alphabetizes and groups imports for easy scanning.
 
 > **Gotcha:** If your codebase hides a circular-dependency, auto-sorting can expose it (or break the build). Fix the cycle or temporarily disable the plugin on that file—but please fix the cycle.
 
 ## Wrap-Up
 
-Linting isn’t glamorous, but it’s one of the highest-leverage tools you can add to a codebase. **Turn on “Format on Save”** in your editor (VS Code/Cursor → *Settings* → *Editor: Format On Save*) to apply it automatically.
+Linting isn’t glamorous, but it’s one of the highest-leverage tools you can add to a codebase. **Turn on “Format on Save”** in your editor (VS Code/Cursor → _Settings_ → _Editor: Format On Save_) to apply it automatically.
 
-* **Reliability** – catch dependency-array bugs before users do.
-* **Performance** – ship only the code you need.
-* **Consistency** – every file feels familiar, every PR gets reviewed for substance.
+- **Reliability** – catch dependency-array bugs before users do.
+- **Performance** – ship only the code you need.
+- **Consistency** – every file feels familiar, every PR gets reviewed for substance.

@@ -11,9 +11,9 @@ During my first year of coding I spent almost a hundred hours on Zoom with any i
 
 > Great engineers read documentation ferociously.
 
-Yes, he really said ferociously. So I did just that. I devoured docs on React, Next.js, Typescript, designs systems, databases—anything in my reach. My rate of learning sky rocketed... until I hit a deeper, but much quieter problem: I knew dozens of APIs for all my favourite libraries, but I still struggled with things that felt super fundamental like _Where should this file live? When, why and how do I memoize? How should I write custom hooks? Why did this refactor tank performance? Why are my builds taking so long?_ 
+Yes, he really said ferociously. So I did just that. I devoured docs on React, Next.js, Typescript, designs systems, databases—anything in my reach. My rate of learning sky rocketed... until I hit a deeper, but much quieter problem: I knew dozens of APIs for all my favourite libraries, but I still struggled with things that felt super fundamental like _Where should this file live? When, why and how do I memoize? How should I write custom hooks? Why did this refactor tank performance? Why are my builds taking so long?_
 
-I wrote—no exaggeration—tens of thousands to a hundred thousand lines of code a month on project after project. The trial-and-error process was painful, and wildly educational. **therepository** exists so you don't have to suffer quite as much. This is a collection of "slightly-advanced fundamentals" that nobody puts in official docs: directory structures, design-engineering-grade components, performance-oriented and boilerplate-reducing hooks, introduction to linting rules that actually matter and a deep dive on why, etc. 
+I wrote—no exaggeration—tens of thousands to a hundred thousand lines of code a month on project after project. The trial-and-error process was painful, and wildly educational. **therepository** exists so you don't have to suffer quite as much. This is a collection of "slightly-advanced fundamentals" that nobody puts in official docs: directory structures, design-engineering-grade components, performance-oriented and boilerplate-reducing hooks, introduction to linting rules that actually matter and a deep dive on why, etc.
 
 # Guiding Principals
 
@@ -42,6 +42,7 @@ I wrote these with a few people in mind.
 **Custom React Hooks**—Helpful code snippets that reduce boilerplate for small but useful behaviours with real-world demos.
 
 # Closing Note
+
 Great engineering is learnable—and it starts with the right mental models. I’m sharing mine so you can skip the mistakes without skipping the learning. Here’s to writing code that feels as good to read as it does to run.
 
 [marcelo@gumloop.com](mailto:marcelo@gumloop.com)

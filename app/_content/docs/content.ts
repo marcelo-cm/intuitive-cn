@@ -1,4 +1,4 @@
-import { Book, BookOpen, Database, FileWarning } from 'lucide-react';
+import { Book, BookOpen, FileWarning } from 'lucide-react';
 
 import { IContentGroup } from '@/app/[topic]/_constants/content-types';
 
@@ -18,11 +18,11 @@ const CONTENT: IContentGroup = {
       href: '/docs/linting-101',
       Icon: FileWarning,
     },
-    {
-      title: 'Working with Drizzle ORM & Supabase, and Why',
-      href: '/docs/drizzle-orm-supabase',
-      Icon: Database,
-    },
+    // {
+    //   title: 'Working with Drizzle ORM & Supabase, and Why',
+    //   href: '/docs/drizzle-orm-supabase',
+    //   Icon: Database,
+    // },
     // {
     //   title: 'Cursor Rules',
     //   description:

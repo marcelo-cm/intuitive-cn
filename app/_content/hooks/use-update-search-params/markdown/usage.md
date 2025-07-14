@@ -1,5 +1,5 @@
-
 # Usage
+
 ```tsx
 const BasicExample: React.FC = () => {
   const { currentSearchParams, updateSearchParam, removeSearchParams } =
