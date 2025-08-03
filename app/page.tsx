@@ -13,8 +13,7 @@ export default function Home() {
         <div>
           <Title>the repository</Title>
           <Subtitle balance>
-            components built for design engineering. patterns optimized for
-            codegen, and scale.
+            patterns, code snippets, and basic practices for design engineering.
           </Subtitle>
         </div>
         <TableOfContents />
