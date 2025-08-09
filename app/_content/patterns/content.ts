@@ -1,4 +1,4 @@
-import { Folder, LayoutGrid, Table } from 'lucide-react';
+import { Folder, LayoutGrid } from 'lucide-react';
 
 import { IContentGroup } from '@/app/[topic]/_constants/content-types';
 
@@ -11,11 +11,11 @@ const CONTENT: IContentGroup = {
       href: '/patterns/directory-structure-and-file-naming',
       Icon: Folder,
     },
-    {
-      title: 'Data Modeling Base Model Requirements',
-      href: '/patterns/data-modeling-base-model-requirements',
-      Icon: Table,
-    },
+    // {
+    //   title: 'Data Modeling Base Model Requirements',
+    //   href: '/patterns/data-modeling-base-model-requirements',
+    //   Icon: Table,
+    // },
     // {
     //   title: 'Data Fetching (Server vs Client Side)',
     //   description:
