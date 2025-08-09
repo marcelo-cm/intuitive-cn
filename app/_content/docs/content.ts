@@ -1,4 +1,4 @@
-import { Book, BookOpen, FileWarning } from 'lucide-react';
+import { Book, BookOpen, FileWarning, List } from 'lucide-react';
 
 import { IContentGroup } from '@/app/[topic]/_constants/content-types';
 
@@ -17,6 +17,11 @@ const CONTENT: IContentGroup = {
         'Automated code quality checks to catch bugs early and enforce consistent style',
       href: '/docs/linting-101',
       Icon: FileWarning,
+    },
+    {
+      title: 'Coming Soon...',
+      href: '/docs/coming-soon',
+      Icon: List,
     },
     // {
     //   title: 'Working with Drizzle ORM & Supabase, and Why',
