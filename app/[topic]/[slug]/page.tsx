@@ -1,8 +1,9 @@
 import type React from 'react';
 
-import { getPostData } from '@/app/[topic]/_utils/markdown-utils';
+import { getAllPosts, getPostData } from '@/app/[topic]/_utils/markdown-utils';
 
 import {
+  getAllContentSlugs,
   hasConfigDrivenContent,
   loadConfigDrivenContent,
 } from '../_utils/content-utils';
@@ -14,6 +15,30 @@ interface IBlogPostPageProps {
     topic: string;
     slug: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const params = [];
+
+  // Get all markdown posts
+  const posts = await getAllPosts();
+  for (const post of posts) {
+    params.push({
+      topic: post.topic,
+      slug: post.slug,
+    });
+  }
+
+  // Get all config-driven content
+  const contentSlugs = await getAllContentSlugs();
+  for (const { topic, slug } of contentSlugs) {
+    params.push({
+      topic,
+      slug,
+    });
+  }
+
+  return params;
 }
 
 /**

@@ -59,6 +59,42 @@ export async function loadConfigDrivenContent(
   }
 }
 
+/**
+ * Get all config-driven content slugs for static generation
+ */
+export async function getAllContentSlugs(): Promise<
+  Array<{ topic: string; slug: string }>
+> {
+  const slugs: Array<{ topic: string; slug: string }> = [];
+  const contentDir = path.join(process.cwd(), 'app', '_content');
+
+  if (!fs.existsSync(contentDir)) {
+    return slugs;
+  }
+
+  const topics = fs
+    .readdirSync(contentDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+  for (const topic of topics) {
+    const topicPath = path.join(contentDir, topic);
+    const items = fs
+      .readdirSync(topicPath, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+
+    for (const slug of items) {
+      // Check if this is a config-driven article by looking for config.ts
+      if (hasConfigDrivenContent(topic, slug)) {
+        slugs.push({ topic, slug });
+      }
+    }
+  }
+
+  return slugs;
+}
+
 async function _processConfigContent(
   config: IContentConfig,
   topic: string,

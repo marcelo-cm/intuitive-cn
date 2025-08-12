@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { TrashIcon } from 'lucide-react';
 
 import { Button } from '@/components/intuitive-ui/(native)/button';
@@ -8,6 +10,7 @@ import {
   Size,
   Variant,
 } from '@/components/intuitive-ui/(native)/component-enums';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -23,7 +26,7 @@ import Container from '@/app/[topic]/[slug]/_components/container';
 
 import SearchParamForm from './_components/search-param-form';
 
-const BasicExample: React.FC = () => {
+const SearchParamsDemo: React.FC = () => {
   const { currentSearchParams, removeSearchParams } = useUpdateSearchParams();
 
   const searchParamEntries = Object.entries(currentSearchParams);
@@ -74,6 +77,14 @@ const BasicExample: React.FC = () => {
         </pre>
       </Container>
     </div>
+  );
+};
+
+const BasicExample: React.FC = () => {
+  return (
+    <Suspense fallback={<Skeleton />}>
+      <SearchParamsDemo />
+    </Suspense>
   );
 };
 

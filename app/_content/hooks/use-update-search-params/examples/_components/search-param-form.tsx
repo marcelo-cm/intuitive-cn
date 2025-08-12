@@ -11,8 +11,8 @@ import {
   Size,
   Variant,
 } from '@/components/intuitive-ui/(native)/component-enums';
+import { Input } from '@/components/intuitive-ui/(native)/input';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 
 import { useUpdateSearchParams } from '@/hooks/use-update-search-params';
 
