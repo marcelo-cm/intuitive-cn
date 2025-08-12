@@ -1,3 +1,4 @@
+import { LogSnagProvider } from '@logsnag/next';
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -35,15 +36,20 @@ export default function RootLayout({
         crossOrigin="anonymous"
         src="//unpkg.com/react-scan/dist/auto.global.js"
       />
-      <TooltipProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} min-h-svh font-sans antialiased`}
-        >
-          <Analytics />
-          {children}
-          <Toaster />
-        </body>
-      </TooltipProvider>
+      <LogSnagProvider
+        token={process.env.NEXT_PUBLIC_LOG_SNAG_API_TOKEN!}
+        project="the-repository"
+      >
+        <TooltipProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} min-h-svh font-sans antialiased`}
+          >
+            <Analytics />
+            {children}
+            <Toaster />
+          </body>
+        </TooltipProvider>
+      </LogSnagProvider>
     </html>
   );
 }

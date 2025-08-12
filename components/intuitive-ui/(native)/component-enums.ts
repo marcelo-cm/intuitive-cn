@@ -8,6 +8,7 @@ enum Variant {
   GHOST = 'ghost',
   LINK = 'link',
   OUTLINE = 'outline',
+  MUTED = 'muted',
 }
 
 enum Accent {

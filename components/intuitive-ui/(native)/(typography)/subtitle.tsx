@@ -8,18 +8,18 @@ import { Size } from '../component-enums';
 import { TextLevel, TextTransform } from './typography-enums';
 
 const subtitleVariants = cva(
-  'tracking-tight break-words mb-4 flex items-center gap-2',
+  'mb-4 flex items-center gap-2 tracking-tight break-words',
   {
     variants: {
       level: {
-        [TextLevel.H1]: 'text-3xl text-foreground',
-        [TextLevel.H2]: 'text-2xl text-foreground',
-        [TextLevel.H3]: 'text-xl text-foreground',
-        [TextLevel.H4]: 'text-lg text-muted-foreground',
-        [TextLevel.H5]: 'text-base text-muted-foreground',
-        [TextLevel.H6]: 'text-sm text-muted-foreground',
-        [TextLevel.P]: 'text-base text-muted-foreground',
-        [TextLevel.SPAN]: 'inline text-muted-foreground',
+        [TextLevel.H1]: 'text-foreground text-3xl',
+        [TextLevel.H2]: 'text-foreground text-2xl',
+        [TextLevel.H3]: 'text-foreground text-xl',
+        [TextLevel.H4]: 'text-muted-foreground text-lg',
+        [TextLevel.H5]: 'text-muted-foreground text-base',
+        [TextLevel.H6]: 'text-muted-foreground text-sm',
+        [TextLevel.P]: 'text-muted-foreground text-base',
+        [TextLevel.SPAN]: 'text-muted-foreground inline',
       },
       size: {
         [Size.XXS]: 'text-xs',

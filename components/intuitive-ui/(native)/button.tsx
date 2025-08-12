@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { Accent, Orientation, Shadow, Size, Variant } from './component-enums';
 
 const buttonVariants = cva(
-  'inline-flex w-fit relative items-center cursor-pointer justify-center gap-2 whitespace-nowrap rounded-md text-sm text-nowrap break-keep underline-offset-2 font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 transition-colors duration-200 focus-visible:ring-offset-2 focus-visible:ring-accent',
+  'focus-visible:ring-accent relative inline-flex w-fit cursor-pointer items-center justify-center gap-2 rounded-sm text-sm font-medium text-nowrap break-keep whitespace-nowrap underline-offset-2 transition-all duration-250 focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-98 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -28,14 +28,14 @@ const buttonVariants = cva(
         [Variant.WARNING]:
           'bg-warning text-warning-foreground hover:bg-warning/80 active:bg-warning/90 focus-visible:ring-warning',
         [Variant.GHOST]:
-          'bg-transparent hover:backdrop-blur hover:bg-accent/3 hover:opacity-80 active:opacity-90',
+          'hover:bg-accent/3 bg-transparent hover:opacity-80 hover:backdrop-blur active:opacity-90',
         [Variant.LINK]:
-          'bg-transparent text-accent hover:text-accent/80 active:text-accent/90 hover:underline hover:backdrop-blur',
+          'text-accent hover:text-accent/80 active:text-accent/90 bg-transparent hover:underline hover:backdrop-blur',
         [Variant.OUTLINE]:
-          'border border-input bg-white hover:bg-gray-50 active:bg-gray-100',
+          'border-input border bg-white hover:bg-gray-50 active:bg-gray-100',
       },
       size: {
-        [Size.XXXS]: 'h-6 min-w-6 px-2 text-xs rounded-full',
+        [Size.XXXS]: 'h-6 min-w-6 rounded-full px-2 text-xs',
         [Size.XXS]: 'h-7 min-w-7 px-2 text-xs',
         [Size.XS]: 'h-8 min-w-8 px-3 text-xs',
         [Size.SM]: 'h-9 min-w-9 px-3 text-xs',

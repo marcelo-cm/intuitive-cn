@@ -7,6 +7,7 @@ interface IUseCopyToClipboardOptions {
   successMessage?: string;
   errorMessage?: string;
   persistError?: boolean;
+  showToast?: boolean;
 }
 
 /**
@@ -27,6 +28,7 @@ export const useCopyToClipboard = (
     successMessage = 'Copied to clipboard',
     errorMessage = 'Failed to copy to clipboard',
     persistError = false,
+    showToast = true,
   } = options;
 
   const [isCopied, setIsCopied] = useState(false);
@@ -46,7 +48,9 @@ export const useCopyToClipboard = (
       }
 
       await navigator.clipboard.writeText(text);
-      toast.success(successMessage ?? 'Copied to clipboard');
+      if (showToast) {
+        toast.success(successMessage ?? 'Copied to clipboard');
+      }
       setIsCopied(true);
 
       /**
@@ -58,7 +62,9 @@ export const useCopyToClipboard = (
 
       return true;
     } catch (err) {
-      toast.error(errorMessage ?? 'Failed to copy to clipboard');
+      if (showToast) {
+        toast.error(errorMessage ?? 'Failed to copy to clipboard');
+      }
       const error =
         err instanceof Error ? err.message : 'Failed to copy to clipboard';
       setError(error);
@@ -72,7 +78,7 @@ export const useCopyToClipboard = (
 
       return false;
     }
-  }, [text, timeout, successMessage, errorMessage, persistError]);
+  }, [text, timeout, successMessage, errorMessage, persistError, showToast]);
 
   const reset = useCallback(() => {
     setIsCopied(false);

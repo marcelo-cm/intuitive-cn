@@ -3,22 +3,18 @@
 import React from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
-import { toast } from 'sonner';
 
 interface CopyLinkButtonProps {
   // Core props
-  value: string;
+  value: string | number | boolean | undefined | null | readonly string[];
   children: React.ReactNode;
 
   // Customization props
   asChild?: boolean;
-  successMessage?: string;
-  errorMessage?: string;
-  onCopySuccess?: (value: string) => void;
-  onCopyError?: (error: unknown) => void;
-
-  // Toast customization
-  showToast?: boolean;
+  onCopySuccess?: (
+    value: string | number | boolean | undefined | null | readonly string[],
+  ) => void;
+  onCopyError?: (error: unknown | Error) => void;
 
   // Additional props for the root element
   className?: string;
@@ -29,11 +25,8 @@ const CopyLinkButton = ({
   value,
   children,
   asChild = true,
-  successMessage = 'Copied to clipboard',
-  errorMessage = 'Failed to copy to clipboard',
   onCopySuccess,
   onCopyError,
-  showToast = true,
   className,
   disabled,
   ...props
@@ -44,19 +37,11 @@ const CopyLinkButton = ({
     if (disabled) return;
 
     try {
-      await navigator.clipboard.writeText(value);
-
-      if (showToast) {
-        toast.success(successMessage);
-      }
+      await navigator.clipboard.writeText(String(value));
 
       onCopySuccess?.(value);
     } catch (error) {
       console.error('Copy to clipboard failed:', error);
-
-      if (showToast) {
-        toast.error(errorMessage);
-      }
 
       onCopyError?.(error);
     }

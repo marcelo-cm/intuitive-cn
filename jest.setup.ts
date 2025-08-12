@@ -1,9 +1,8 @@
 import '@testing-library/jest-dom';
 import { TransformStream } from 'stream/web';
-import { TextDecoder, TextEncoder } from 'util';
+import { TextDecoder } from 'util';
 import 'whatwg-fetch';
 
-global.TextEncoder = TextEncoder;
 // @ts-expect-error - TextDecoder is not defined in the global scope
 global.TextDecoder = TextDecoder;
 // @ts-expect-error - TransformStream is not defined in the global scope

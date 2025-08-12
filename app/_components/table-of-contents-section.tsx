@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
 
 import { Title } from '@/components/intuitive-ui/(native)/(typography)/title';
 import { TextLevel } from '@/components/intuitive-ui/(native)/(typography)/typography-enums';
@@ -6,13 +8,23 @@ import { Separator } from '@/components/ui/separator';
 
 import { cn } from '@/lib/utils';
 
-import { IContentGroup } from '../[topic]/_constants/content-types';
+import {
+  IContentGroup,
+  IContentItem,
+} from '../[topic]/_constants/content-types';
+import TableOfContentsItem from './table-of-contents-item';
 
 interface ITableOfContentsSectionProps {
   group: IContentGroup;
 }
 
 const TableOfContentsSection = ({ group }: ITableOfContentsSectionProps) => {
+  const [activeItem, setActiveItem] = useState<IContentItem | null>(null);
+
+  const handleItemClick = (item: IContentItem) => {
+    setActiveItem(item);
+  };
+
   return (
     <div className={cn('flex flex-col gap-2')}>
       <div className="flex flex-row items-start justify-between gap-2">
@@ -23,17 +35,12 @@ const TableOfContentsSection = ({ group }: ITableOfContentsSectionProps) => {
       </div>
       <Separator />
       {group.items.map((item) => (
-        <Link key={item.title} className="group/link" href={item.href}>
-          <div className="text-foreground flex flex-row items-start justify-between gap-2 no-underline group-hover/link:underline">
-            <p className="mb-0 text-sm font-normal">{item.title}</p>
-            <item.Icon className="mt-0.5 size-4" />
-          </div>
-          {item.description && (
-            <p className="text-muted-foreground pr-6 text-sm text-pretty">
-              {item.description}
-            </p>
-          )}
-        </Link>
+        <TableOfContentsItem
+          key={item.title}
+          item={item}
+          isLoading={activeItem === item}
+          onClick={() => handleItemClick(item)}
+        />
       ))}
     </div>
   );
