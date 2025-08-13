@@ -7,7 +7,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-import { Accent, Shadow, Size, Variant } from './component-enums';
+import { Shadow, Size, Variant } from './component-enums';
 
 const inputVariants = cva(
   'border-input file:text-foreground bg-background placeholder:text-muted-foreground focus-visible:ring-ring ring-offset-background flex w-full rounded-sm border px-3 py-1 text-base transition-colors duration-300 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
@@ -50,61 +50,11 @@ const inputVariants = cva(
         [Shadow.MD]: 'shadow-md',
         [Shadow.LG]: 'shadow-lg',
       },
-      accent: {
-        [Accent.DESTRUCTIVE]:
-          'border-destructive/50 bg-destructive/5 focus-visible:ring-destructive placeholder:text-destructive-foreground/50',
-        [Accent.SUCCESS]:
-          'border-success/50 bg-success/5 focus-visible:ring-success placeholder:text-success-foreground/50',
-        [Accent.WARNING]:
-          'border-warning/50 bg-warning/5 focus-visible:ring-warning placeholder:text-warning-foreground/50',
-      },
-      rounded: { true: 'rounded-full' },
-      invert: { true: '' },
     },
     defaultVariants: {
       variant: Variant.PRIMARY,
       size: Size.SM,
-      rounded: false,
     },
-    compoundVariants: [
-      // Invert compounds
-      {
-        invert: true,
-        variant: Variant.PRIMARY,
-        className:
-          'bg-primary text-primary-foreground border-primary placeholder:text-primary-foreground/70',
-      },
-      {
-        invert: true,
-        variant: Variant.SECONDARY,
-        className:
-          'bg-secondary text-secondary-foreground border-secondary placeholder:text-secondary-foreground/70',
-      },
-      {
-        invert: true,
-        variant: Variant.ACCENT,
-        className:
-          'bg-accent text-accent-foreground border-accent placeholder:text-accent-foreground/70',
-      },
-      {
-        invert: true,
-        variant: Variant.DESTRUCTIVE,
-        className:
-          'bg-destructive text-destructive-foreground border-destructive placeholder:text-destructive-foreground/70',
-      },
-      {
-        invert: true,
-        variant: Variant.SUCCESS,
-        className:
-          'bg-success text-success-foreground border-success placeholder:text-success-foreground/70',
-      },
-      {
-        invert: true,
-        variant: Variant.WARNING,
-        className:
-          'bg-warning text-warning-foreground border-warning placeholder:text-warning-foreground/70',
-      },
-    ],
   },
 );
 
@@ -115,10 +65,12 @@ export interface InputProps
   LeadingIcon?: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >;
+  LeadingIconProps?: React.SVGProps<SVGSVGElement>;
   /** Icon to display after the input */
   TrailingIcon?: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >;
+  TrailingIconProps?: React.SVGProps<SVGSVGElement>;
   /** Description for the input */
   description?: string;
   /** Error message for the input */
@@ -132,12 +84,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       type,
       variant,
       size,
-      accent,
-      rounded,
       shadow,
-      invert,
       LeadingIcon,
+      LeadingIconProps,
       TrailingIcon,
+      TrailingIconProps,
       description,
       error,
       'aria-describedby': ariaDescribedBy,
@@ -158,62 +109,79 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       [ariaDescribedBy, descriptionId, errorId].filter(Boolean).join(' ') ||
       undefined;
 
-    return (
-      <div className="relative w-full">
-        {LeadingIcon && (
-          <LeadingIcon
-            className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
-            aria-hidden="true"
-          />
-        )}
+    if (LeadingIcon || TrailingIcon) {
+      const { className: leadingIconClassName, ...leadingIconProps } =
+        LeadingIconProps || {};
+      const { className: trailingIconClassName, ...trailingIconProps } =
+        TrailingIconProps || {};
 
-        <input
-          id={finalInputId}
-          type={type}
+      return (
+        <div
           className={cn(
-            inputVariants({
-              variant: effectiveVariant,
-              size,
-              rounded,
-              shadow,
-              invert,
-              accent: hasError ? Accent.DESTRUCTIVE : accent,
-              className,
-            }),
-            LeadingIcon && 'pl-10',
-            TrailingIcon && 'pr-10',
+            '[&_svg]:text-muted-foreground relative [&_svg]:absolute [&_svg]:top-1/2 [&_svg]:size-5 [&_svg]:shrink-0 [&_svg]:-translate-y-1/2',
+            className,
           )}
-          ref={ref}
-          aria-describedby={combinedAriaDescribedBy}
-          aria-invalid={hasError}
-          {...props}
-        />
+        >
+          {LeadingIcon && (
+            <LeadingIcon
+              className={cn(
+                'left-3',
+                leadingIconProps?.onClick
+                  ? 'cursor-pointer'
+                  : 'pointer-events-none',
+                leadingIconClassName,
+              )}
+              {...leadingIconProps}
+            />
+          )}
 
-        {TrailingIcon && (
-          <TrailingIcon
-            className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2"
-            aria-hidden="true"
+          <input
+            id={finalInputId}
+            type={type}
+            className={cn(
+              inputVariants({
+                variant: effectiveVariant,
+                size,
+                shadow,
+                className,
+              }),
+              LeadingIcon && 'pl-10',
+              TrailingIcon && 'pr-10',
+            )}
+            ref={ref}
+            aria-describedby={combinedAriaDescribedBy}
+            aria-invalid={hasError}
+            {...props}
           />
-        )}
 
-        {/* Description text */}
-        {description && !hasError && (
-          <p id={descriptionId} className="text-muted-foreground mt-1 text-xs">
-            {description}
-          </p>
-        )}
+          {TrailingIcon && (
+            <TrailingIcon
+              className={cn(
+                'right-3',
+                trailingIconProps?.onClick
+                  ? 'cursor-pointer'
+                  : 'pointer-events-none',
+                trailingIconClassName,
+              )}
+              {...trailingIconProps}
+            />
+          )}
+        </div>
+      );
+    }
 
-        {/* Error message */}
-        {error && (
-          <p
-            id={errorId}
-            className="text-destructive mt-1 text-xs"
-            role="alert"
-          >
-            {error}
-          </p>
+    return (
+      <input
+        id={finalInputId}
+        type={type}
+        className={cn(
+          inputVariants({ variant: effectiveVariant, size, shadow, className }),
         )}
-      </div>
+        aria-describedby={combinedAriaDescribedBy}
+        aria-invalid={hasError}
+        ref={ref}
+        {...props}
+      />
     );
   },
 );

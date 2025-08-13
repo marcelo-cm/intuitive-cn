@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { Search } from 'lucide-react';
 
@@ -17,7 +17,7 @@ import { Input } from '@/components/intuitive-ui/(native)/input';
 
 import { useAutoFocusedInput } from '@/hooks/use-auto-focused-input';
 import { useFuzzySearchGroups } from '@/hooks/use-fuzzy-search-groups';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 import { cn } from '@/lib/utils';
 
@@ -32,7 +32,14 @@ const TableOfContents = () => {
       searchKeys: ['title', 'description'],
     });
 
-  const searchRef = useAutoFocusedInput();
+  const searchRef = useAutoFocusedInput({
+    onEscape: () => setQuery(''),
+    onEnter: () => {
+      if (isEmpty && query) {
+        handleLogSnagRequest(query);
+      }
+    },
+  });
 
   const handleLogSnagRequest = useCallback(
     (request: string | null) => {
@@ -55,18 +62,8 @@ const TableOfContents = () => {
     handleLogSnagRequest(query);
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && isEmpty) {
-        handleLogSnagRequest(query);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-  }, [isEmpty, query, handleLogSnagRequest]);
-
   return (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="flex flex-col gap-6">
       <AnimatePresence mode="popLayout">
         <motion.form
           autoComplete="off"

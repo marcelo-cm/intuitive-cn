@@ -1,3 +1,12 @@
+---
+title: Explanation
+---
+
+`useAutoFocusedInput` automatically focuses an input when the user types a non-modifier key anywhere on the page. It also supports blurring the input on `Escape`/`Enter` and optional callbacks for those events. This provides a keyboard-first UX that feels snappy without requiring explicit focusing logic.
+
+# Code
+
+```ts
 import { useCallback, useEffect, useRef } from 'react';
 
 export interface IUseAutoFocusedInputProps {
@@ -113,3 +122,4 @@ export function useAutoFocusedInput<
 
   return inputRef;
 }
+```

@@ -24,10 +24,8 @@ const ContentBreadcrumbs = () => {
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbSeparator />
-      <BreadcrumbItem>
-        <BreadcrumbLink asChild>
-          <Link href={`/${topic}`}>{capitalizeText(topic)}</Link>
-        </BreadcrumbLink>
+      <BreadcrumbItem className="text-muted-foreground text-sm">
+        {capitalizeText(topic)}
       </BreadcrumbItem>
     </Breadcrumb>
   );

@@ -42,6 +42,7 @@ const ShareLinkButton = ({ className, ...props }: ButtonProps) => {
       className={cn(className)}
       variant={Variant.GHOST}
       size={Size.XXS}
+      icon
       onClick={handleCopy}
       {...props}
     >

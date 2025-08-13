@@ -1,5 +1,3 @@
-# What & Why?
-
 The `useRemoteTrigger` hook provides a simple way to control dialogs, sheets, or similar components using either local state (clicking a trigger) or external props (`open` and `onOpenChange`).
 
 It internally manages `isOpen` state and keeps it synchronized with the `open` prop via `useEffect`. Whenever `open` changes externally, the hook updates the internal state to reflect it. The returned `handleOpenChange` callback updates both the internal state and calls `onOpenChange`, ensuring external and internal state stay in sync.

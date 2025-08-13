@@ -3,8 +3,6 @@ title: useUpdateSearchParams
 visibility: public
 ---
 
-# What & Why?
-
 This `useUpdateSearchParams` hook provides a comprehensive API for managing URL search parameters. It includes flexible options for controlling scroll behavior and routing methods (push vs replace). This ensures performant URL updates while maintaining proper browser history management, according to user preferences.
 
 # Code

@@ -2,6 +2,8 @@ import type { ElementType } from 'react';
 
 import {
   CopyIcon,
+  KeyboardIcon,
+  ListTreeIcon,
   MousePointerIcon,
   RefreshCcwDotIcon,
   SearchIcon,
@@ -13,7 +15,11 @@ import {
   IContentGroup,
 } from '@/app/[topic]/_constants/content-types';
 
+import useAutoFocusedInputConfig from './use-auto-focused-input/config';
 import useCopyToClipboardConfig from './use-copy-to-clipboard/config';
+import useFuzzySearchGroupsConfig from './use-fuzzy-search-groups/config';
+import useFuzzySearchConfig from './use-fuzzy-search/config';
+import useHasMountedConfig from './use-has-mounted/config';
 import useRemoteTriggerConfig from './use-remote-trigger/config';
 import useSyncedStateConfig from './use-synced-state/config';
 import useUpdateSearchParamsConfig from './use-update-search-params/config';
@@ -41,9 +47,13 @@ const CONTENT: IContentGroup = {
   Icon: Zap,
   items: [
     createHookItem(useCopyToClipboardConfig, CopyIcon),
-    createHookItem(useRemoteTriggerConfig, MousePointerIcon),
     createHookItem(useUpdateSearchParamsConfig, SearchIcon),
+    createHookItem(useRemoteTriggerConfig, MousePointerIcon),
     createHookItem(useSyncedStateConfig, RefreshCcwDotIcon),
+    createHookItem(useAutoFocusedInputConfig, KeyboardIcon),
+    createHookItem(useHasMountedConfig, RefreshCcwDotIcon),
+    createHookItem(useFuzzySearchConfig, SearchIcon),
+    createHookItem(useFuzzySearchGroupsConfig, ListTreeIcon),
   ],
 };
 

@@ -1,5 +1,3 @@
-# What & Why?
-
 This `useSyncedState` hook provides a convenient way to create a piece of state that stays synchronized with an external value (`initialState`) even if that value changes over time. Unlike `useState`, which only uses the initial value on the first render, `useSyncedState` watches for changes to `initialState` and updates the internal state accordingly.
 
 This is especially useful when you need _both_ of the following:
@@ -13,3 +11,25 @@ The hook returns a `[state, setState]` tuple identical to `useState`, so you can
 
 **Important:**
 You should only use this hook if you need the ability to call the setter. If you just want to derive a value that updates when dependencies change but don’t need to set it yourself, prefer `useMemo` for simpler and more predictable behavior.
+
+# Code
+
+```ts
+import { useEffect, useState } from 'react';
+
+/**
+ * Just like a useState, but if the initial state is changed, the state will be updated to the new value.
+ * @important — You should only ever use this hook if you need to use the setter, otherwise you should just useMemo the value you want to sync.
+ */
+const useSyncedState = <T>(initialState: T) => {
+  const [state, setState] = useState<T>(initialState);
+
+  useEffect(() => {
+    setState(initialState);
+  }, [initialState]);
+
+  return [state, setState] as const;
+};
+
+export default useSyncedState;
+```

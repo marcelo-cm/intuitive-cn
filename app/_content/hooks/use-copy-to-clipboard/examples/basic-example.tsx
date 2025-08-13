@@ -63,7 +63,7 @@ const BasicExample: React.FC = () => {
             TrailingIcon={errorFailure ? AlertTriangleIcon : CopyIcon}
             variant={errorFailure ? Variant.DESTRUCTIVE : Variant.PRIMARY}
           >
-            {errorFailure ? 'Failed to copy!' : 'Click to see failure'}
+            {errorFailure ? 'Failed to copy' : 'Click to see failure'}
           </Button>
           <Button variant={Variant.GHOST} onClick={resetFailure} icon>
             <RefreshCcwIcon className="h-4 w-4" />

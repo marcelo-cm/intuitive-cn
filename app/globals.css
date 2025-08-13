@@ -159,7 +159,7 @@ svg {
   --offset: 0px;
 
   position: absolute;
-  width: calc(100% + var(--offset));
+  width: calc(100dvw + var(--offset));
   height: var(--height);
   left: calc(var(--offset) / 2 * -1);
 
@@ -184,7 +184,7 @@ svg {
 
   position: absolute;
   width: var(--width);
-  height: calc(100% + var(--offset));
+  height: calc(100dvh + var(--offset));
   top: calc(var(--offset) / 2 * -1);
 
   background: linear-gradient(
