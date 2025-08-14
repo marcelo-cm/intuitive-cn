@@ -29,5 +29,13 @@ export const DrizzleBaseModel = {
     withTimezone: true,
   }),
 };
-export type TBaseModel = typeof DrizzleBaseModel;
-export type TWithoutBaseModel<T> = Omit<T, keyof TBaseModel>;
+export interface IBaseModel {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  is_active: boolean;
+  deleted_at: Date | null;
+}
+// Backwards-compatible alias for existing imports
+export type TBaseModel = IBaseModel;
+export type TWithoutBaseModel<T> = Omit<T, keyof IBaseModel>;

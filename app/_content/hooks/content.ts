@@ -22,7 +22,6 @@ import useFuzzySearchConfig from './use-fuzzy-search/config';
 import useHasMountedConfig from './use-has-mounted/config';
 import useRemoteTriggerConfig from './use-remote-trigger/config';
 import useSyncedStateConfig from './use-synced-state/config';
-import useUpdateSearchParamsConfig from './use-update-search-params/config';
 
 function createHookItem(config: IContentConfig, Icon: ElementType) {
   // Convert title to kebab-case for URL slug
@@ -47,7 +46,7 @@ const CONTENT: IContentGroup = {
   Icon: Zap,
   items: [
     createHookItem(useCopyToClipboardConfig, CopyIcon),
-    createHookItem(useUpdateSearchParamsConfig, SearchIcon),
+    // createHookItem(useUpdateSearchParamsConfig, SearchIcon),
     createHookItem(useRemoteTriggerConfig, MousePointerIcon),
     createHookItem(useSyncedStateConfig, RefreshCcwDotIcon),
     createHookItem(useAutoFocusedInputConfig, KeyboardIcon),

@@ -20,6 +20,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@hookform/resolvers": "^3.10.0",
     "@intuitive-cli/nextjs": "link:../intuitive",
     "@logsnag/next": "^1.0.3",
