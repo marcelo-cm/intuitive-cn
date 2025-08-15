@@ -37,7 +37,6 @@ export async function generateMetadata({
   } = matterResult.data;
 
   return {
-    metadataBase: new URL('https://www.marcelochaman.ca'),
     title: `${title} | Simplexity by Marcelo`,
     description: subtitle,
     openGraph: {

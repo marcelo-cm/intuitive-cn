@@ -21,7 +21,6 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.marcelochaman.ca'),
   title: 'Marcelo, Software & Design',
   description: 'Moving Pixels',
 };
