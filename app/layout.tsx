@@ -8,6 +8,7 @@ import Script from 'next/script';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
+import Navigation from './_components/navigation';
 import './globals.css';
 
 const geistSans = Geist({
@@ -53,6 +54,7 @@ export default function RootLayout({
           >
             <Analytics />
             {children}
+            <Navigation />
             <Toaster />
           </body>
         </TooltipProvider>

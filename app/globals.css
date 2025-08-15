@@ -10,8 +10,8 @@
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover: oklch(0.24 0 0);
+  --popover-foreground: oklch(0.96 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.708 0 0);
@@ -146,7 +146,7 @@ svg {
 }
 
 * {
-  text-underline-offset: 0.125em;
+  text-underline-offset: 0.125rem;
 }
 
 .grid-line-horizontal {
@@ -195,4 +195,13 @@ svg {
     transparent
   );
   background-size: var(--width) var(--height);
+}
+
+.clip-path-container {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  overflow: hidden;
+  transition: clip-path 0.25s ease;
+  clip-path: inset(0px 100% 0px 0% round 100px);
 }

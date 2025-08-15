@@ -1,5 +1,3 @@
-'use client';
-
 import { type ClassValue } from 'clsx';
 
 import { cn } from '@/lib/utils';
