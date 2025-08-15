@@ -2,7 +2,6 @@ import { LogSnagProvider } from '@logsnag/next';
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Head from 'next/head';
 import Script from 'next/script';
 
 import { Toaster } from '@/components/ui/sonner';
@@ -22,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'the repository',
-  description:
-    'patterns, code snippets, and basic practices for design engineering.',
+  metadataBase: new URL('https://www.marcelochaman.ca'),
+  title: 'Marcelo, Software & Design',
+  description: 'Moving Pixels',
 };
 
 export default function RootLayout({
@@ -34,16 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
+      {process.env.NODE_ENV === 'development' && (
+        <Script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
         />
-      </Head>
-      <Script
-        crossOrigin="anonymous"
-        src="//unpkg.com/react-scan/dist/auto.global.js"
-      />
+      )}
       <LogSnagProvider
         token={process.env.NEXT_PUBLIC_LOG_SNAG_API_TOKEN!}
         project="the-repository"
