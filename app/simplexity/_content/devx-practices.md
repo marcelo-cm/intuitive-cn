@@ -2,7 +2,7 @@
 title: My favourite VSCode Extensions, linting rules, and scripts
 description: How I make my life easier when programming!
 date: Nov 2024
-visibility: public
+visibility: unlisted
 ---
 
 # My VSCode Extension Toolkit
